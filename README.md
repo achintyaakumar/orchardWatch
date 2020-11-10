@@ -1,3 +1,6 @@
+## Made using React, Flask and Pandas
+React frontend, Flask backend, Pandas data processing
+
 ## Available Scripts
 
 In the project directory, you can run:

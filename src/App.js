@@ -6,9 +6,11 @@ function App() {
   const [currentTime, setCurrentTime] = useState(0);
   
   useEffect(() => {
+    const intervalID = setInterval(() => {
     fetch('/temp').then(res => res.json()).then(data => {
       setCurrentTime(data.temp);
     });
+  }, 60000)
   }, []);
 
   return (
@@ -16,7 +18,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         
-        <p>The current temperature is {currentTime}.</p>
+        <p>The current temperature is {currentTime} °F.</p>
       </header>
     </div>
   );

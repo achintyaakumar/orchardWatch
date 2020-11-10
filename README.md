@@ -1,4 +1,5 @@
 ## Made using React, Flask and Pandas
+React frontend, Flask backend, Pandas data processing
 
 ## Available Scripts
 

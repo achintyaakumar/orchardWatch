@@ -12,11 +12,9 @@ app = Flask(__name__)
 @app.route('/temp')
 def get_current_time():
 
-    #Get current timestamp
-    curTime = datetime.datetime.fromtimestamp(
-        int(time.time())
-    ).strftime('%Y-%m-%d %H:%M:%S')
-    prevTime = (datetime.datetime.now() - datetime.timedelta(minutes=5)).strftime('%Y-%m-%d %H:%M:%S')
+    #Get most recent timestamp for Hobolink
+    curTime = (datetime.datetime.now() + datetime.timedelta(hours=5)- datetime.timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')
+    prevTime = (datetime.datetime.now() + datetime.timedelta(hours=5) - datetime.timedelta(minutes=20)).strftime('%Y-%m-%d %H:%M:%S')
 
     #Initialize parameters for API
     url = "https://webservice.hobolink.com/restv2/data/json"

@@ -1,10 +1,14 @@
-.App {
-  text-align: center;
+.App-logo {
+  height: 6vmin;
+  pointer-events: none;
+  padding: 0.2%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App-logo-text {
+  /* height: 15vmin; */
+  width: 200px; /* width of container */
+  height: 90px; /* height of container */
+  object-fit: cover;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -14,8 +18,13 @@
 }
 
 .App-header {
+  background: #1d2025;
+  color: white;
+}
+
+.App-body{
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 60vh;
   display: flex;
   flex-direction: column;
   align-items: center;

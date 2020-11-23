@@ -23,8 +23,8 @@
 }
 
 .App-body{
-  background-color: #282c34;
-  min-height: 60vh;
+  background-color: #14534e;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,6 +35,33 @@
 
 .App-link {
   color: #61dafb;
+}
+
+table {
+  width:80%;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(17, 17, 17);
+}
+
+tr:nth-child(odd) {
+ background-color: rgb(22, 22, 22);
+}
+
+th {
+  background-color: rgb(20, 17, 17);
+  color: white;
 }
 
 @keyframes App-logo-spin {

@@ -1,4 +1,3 @@
-import time
 import datetime
 from flask import Flask
 import urllib.request
@@ -6,7 +5,7 @@ import json
 import pandas as pd
 from pprint import pprint
 import config
-from flask import render_template
+#import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
@@ -61,63 +60,59 @@ def get_current_time():
     rowSA = df.loc[df['sensor_sn'] == "20692768-1"]
     valueSA = rowSA.iloc[0]['us_value']
 
-    return {'temp1': "%.2f" % float(valueNA), 'temp2': "%.2f" % float(valueSA)}
+    #RH North
+    RHN12 = df.loc[df['sensor_sn'] == "20777735-2"]
+    valueRHN = RHN12.iloc[0]['us_value']
 
-@app.route('/api/tempArray')
-def get_temp_array():
-    #Get last 12 hours of data
-    curTime = (datetime.datetime.now() + datetime.timedelta(hours=5)- datetime.timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')
-    prevTime = (datetime.datetime.now() + datetime.timedelta(hours=5) - datetime.timedelta(minutes=15) - datetime.timedelta(hours=12)).strftime('%Y-%m-%d %H:%M:%S')
+    #RH South
+    RHS12 = df.loc[df['sensor_sn'] == "20692768-2"]
+    valueRHS = RHS12.iloc[0]['us_value']
 
-    #Specify values
+    #Temperature soil North
+    TSN = df.loc[df['sensor_sn'] == "20770089-1"]
+    valueTSN = TSN.iloc[0]['us_value']
 
-    url = "https://webservice.hobolink.com/restv2/data/json"
+    #Temperature soil South
+    TSS = df.loc[df['sensor_sn'] == "20684342-1"]
+    valueTSS = TSS.iloc[0]['us_value']
 
-    values = {
-        "action": "",
-        "authentication": {
-        "password": config.password,
-        "token": config.token,
-        "user": config.username
-    },
-        "query": {
-        "end_date_time": curTime,
-        "loggers": [20777720,20699245,1],
-        "start_date_time": prevTime
-        }
+    #Leaf Wetness North
+    LWN = df.loc[df['sensor_sn'] == "20774075-1"]
+    valueLWN = LWN.iloc[0]['us_value']
+
+    #Leaf Wetness South
+    LWS = df.loc[df['sensor_sn'] == "20650716-1"]
+    valueLWS = LWS.iloc[0]['us_value']
+
+    #Dew Point North
+    DPN = df.loc[df['sensor_sn'] == "20777735-3"]
+    valueDPN = DPN.iloc[0]['us_value']
+
+    #Dew Point South
+    DPS = df.loc[df['sensor_sn'] == "20692768-3"]
+    valueDPS = DPS.iloc[0]['us_value'] 
+
+    #Rain North
+    RN = df.loc[df['sensor_sn'] == "20775973-1"]
+    valueRN = RN.iloc[0]['us_value']
+
+    #Rain South
+    RS = df.loc[df['sensor_sn'] == "20696900-1"]
+    valueRS = RS.iloc[0]['us_value'] 
+
+    #Solar Radiation North
+    SRN = df.loc[df['sensor_sn'] == "20779661-1"]
+    valueSRN = SRN.iloc[0]['us_value']
+
+    #Solar Radiation South
+    SRS = df.loc[df['sensor_sn'] == "20683743-1"]
+    valueSRS = SRS.iloc[0]['us_value'] 
+
+    return {'tempN': "%.2f" % float(valueNA), 'tempS': "%.2f" % float(valueSA),
+    'RHN': "%.2f" % float(valueRHN), 'RHS': "%.2f" % float(valueRHS),
+    'TSN': "%.2f" % float(valueTSN), 'TSS': "%.2f" % float(valueTSS),
+    'LWN': "%.2f" % float(valueLWN), 'LWS': "%.2f" % float(valueLWS),
+    'DPN': "%.2f" % float(valueDPN), 'DPS': "%.2f" % float(valueDPS),
+    'RN': "%.2f" % float(valueRN), 'RS': "%.2f" % float(valueRS),
+    'SRN': "%.2f" % float(valueSRN), 'SRS': "%.2f" % float(valueSRS)
     }
-    headers = {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-    }
-
-    #Get data
-
-    data = json.dumps(values).encode("utf-8")
-    #pprint(data)
-
-    try:
-        req = urllib.request.Request(url, data, headers)
-        with urllib.request.urlopen(req) as f:
-            res = f.read()
-        #pprint(res.decode())
-    except Exception as e:
-        pprint(e)
-    
-    #Convert response to a pandas dataframe
-    data = json.loads(res.decode())
-    df = pd.json_normalize(data['observationList'])
-    #df.to_csv("data.csv")
-
-    #Temperature air North
-    tempN12 = df.loc[df['sensor_sn'] == "20777735-1"]
-    tempN12 = tempN12[['timestamp','us_value']]
-    tempN12 = tempN12.rename(columns={"us_value": "North"})
-
-    #Temperature air South
-    tempS12 = df.loc[df['sensor_sn'] == "20692768-1"]
-    tempS12 = tempS12[['timestamp','us_value']]
-    tempS12 = tempS12.rename(columns={"us_value": "South"})
-
-    return {'North': tempN12.to_json(), 'South': tempS12.to_json()} 
-

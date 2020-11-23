@@ -42,6 +42,7 @@ return (
     <div className="App">
       <body className="App-body">
         <table>
+          <tbody>
           <tr>
             <th>Orchard North</th>
             <th>Orchard South</th>
@@ -74,6 +75,7 @@ return (
             <td>Solar Radiation: {currentSRN} W/m²</td>
             <td>Solar Radiation: {currentSRS} W/m²</td>
           </tr>
+          </tbody>
         </table>
       </body>
     </div>

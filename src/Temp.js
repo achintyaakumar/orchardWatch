@@ -35,7 +35,7 @@ useEffect(() => {
     setCurrentSRN(data.SRN);
     setCurrentSRS(data.SRS);
   });
-}, 60000)
+}, 6000)
 }, []);
 
 return (

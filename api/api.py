@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime as dt, timedelta, timezone
 from flask import Flask
 import urllib.request
 import json
@@ -18,8 +18,8 @@ def index():
 def get_current_time():
 
     #Get most recent timestamp for Hobolink
-    curTime = (datetime.datetime.now() + datetime.timedelta(hours=5)- datetime.timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')
-    prevTime = (datetime.datetime.now() + datetime.timedelta(hours=5) - datetime.timedelta(minutes=20)).strftime('%Y-%m-%d %H:%M:%S')
+    curTime = (dt.now(timezone.utc) - timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')
+    prevTime = (dt.now(timezone.utc) - timedelta(minutes=20)).strftime('%Y-%m-%d %H:%M:%S')
 
     #Initialize parameters for API
     url = "https://webservice.hobolink.com/restv2/data/json"

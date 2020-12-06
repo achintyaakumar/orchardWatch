@@ -16,6 +16,8 @@ const [currentRN, setCurrentRN] = useState(0);
 const [currentRS, setCurrentRS] = useState(0);
 const [currentSRN, setCurrentSRN] = useState(0);
 const [currentSRS, setCurrentSRS] = useState(0);
+const [currentWCSN, setCurrentWCSN] = useState(0);
+const [currentWCSS, setCurrentWCSS] = useState(0);
 
 useEffect(() => {
   setInterval(() => {
@@ -34,8 +36,10 @@ useEffect(() => {
     setCurrentRS(data.RS);
     setCurrentSRN(data.SRN);
     setCurrentSRS(data.SRS);
+    setCurrentWCSN(data.WCSN);
+    setCurrentWCSS(data.WCSS);
   });
-}, 6000)
+}, 20000)
 }, []);
 
 return (
@@ -72,8 +76,12 @@ return (
             <td>Rain: {currentRS} in</td>
           </tr>
           <tr>
-            <td>Solar Radiation: {currentSRN} W/m²</td>
-            <td>Solar Radiation: {currentSRS} W/m²</td>
+            <td>Solar radiation: {currentSRN} W/m²</td>
+            <td>Solar radiation: {currentSRS} W/m²</td>
+          </tr>
+          <tr>
+            <td>Water content: {currentWCSN} m³/m³</td>
+            <td>Water content: {currentWCSS} m³/m³</td>
           </tr>
           </tbody>
         </table>

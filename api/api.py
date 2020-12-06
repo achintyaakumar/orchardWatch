@@ -113,11 +113,20 @@ def get_current_time():
     SRS = df.loc[df['sensor_sn'] == "20683743-1"]
     valueSRS = SRS.iloc[0]['us_value'] 
 
+    #Water Content Soil North
+    WCSN = df.loc[df['sensor_sn'] == "20773509-1"]
+    valueWCSN = WCSN.iloc[0]['us_value'] 
+
+    #Water Content Soil North
+    WCSS = df.loc[df['sensor_sn'] == "20696181-1"]
+    valueWCSS = WCSS.iloc[0]['us_value'] 
+
     return {'tempN': "%.2f" % float(valueNA), 'tempS': "%.2f" % float(valueSA),
     'RHN': "%.2f" % float(valueRHN), 'RHS': "%.2f" % float(valueRHS),
     'TSN': "%.2f" % float(valueTSN), 'TSS': "%.2f" % float(valueTSS),
     'LWN': "%.2f" % float(valueLWN), 'LWS': "%.2f" % float(valueLWS),
     'DPN': "%.2f" % float(valueDPN), 'DPS': "%.2f" % float(valueDPS),
     'RN': "%.2f" % float(valueRN), 'RS': "%.2f" % float(valueRS),
-    'SRN': "%.2f" % float(valueSRN), 'SRS': "%.2f" % float(valueSRS)
+    'SRN': "%.2f" % float(valueSRN), 'SRS': "%.2f" % float(valueSRS),
+    'WCSN': "%.2f" % float(valueWCSN), 'WCSS': "%.2f" % float(valueWCSS),
     }

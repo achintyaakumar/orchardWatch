@@ -20,6 +20,7 @@ def get_current_time():
     #Get most recent timestamp for Hobolink
     curTime = (dt.now(timezone.utc) - timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')
     prevTime = (dt.now(timezone.utc) - timedelta(minutes=20)).strftime('%Y-%m-%d %H:%M:%S')
+    time = dt.now().strftime('%Y-%m-%d %H:%M:%S')
 
     #Initialize parameters for API
     url = "https://webservice.hobolink.com/restv2/data/json"
@@ -329,5 +330,5 @@ def get_current_time():
     'GSS': "%.2f" % float(valueGSS),'GSG': "%.2f" % float(valueGSG), 'GSA16': "%.2f" % float(valueGSA16), 'GSY': "%.2f" % float(valueGSY), 'GSA11': "%.2f" % float(valueGSA11),
     'WDN': "%.2f" % float(valueWDN), 'WDM': "%.2f" % float(valueWDM), 'WDE': "%.2f" % float(valueWDE), 'WDX': "%.2f" % float(valueWDX),
     'WDS': "%.2f" % float(valueWDS), 'WDG':"%.2f" % float(valueWDG), 'WDA16': "%.2f" % float(valueWDA16), 'WDY':"%.2f" % float(valueWDY), 'WDA11': "%.2f" % float(valueWDA11),
-    'time': curTime
+    'time': time
     }

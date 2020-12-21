@@ -5,6 +5,7 @@ import json
 import pandas as pd
 from pprint import pprint
 import config
+import pytz
 #import matplotlib.pyplot as plt
 
 app = Flask(__name__, static_folder="../build", static_url_path="/")
@@ -20,7 +21,9 @@ def get_current_time():
     #Get most recent timestamp for Hobolink
     curTime = (dt.now(timezone.utc) - timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')
     prevTime = (dt.now(timezone.utc) - timedelta(minutes=20)).strftime('%Y-%m-%d %H:%M:%S')
-    time = dt.now().strftime('%Y-%m-%d %H:%M:%S')
+    utc_now = pytz.utc.localize(dt.utcnow())
+    time = utc_now.astimezone(pytz.timezone("US/Eastern")).strftime('%Y-%m-%d %H:%M:%S')
+
 
     #Initialize parameters for API
     url = "https://webservice.hobolink.com/restv2/data/json"

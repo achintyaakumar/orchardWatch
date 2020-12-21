@@ -207,7 +207,7 @@ useEffect(() => {
     setCurrentWDA11(data.WDA11);
     setCurrentTime(data.time);
   });
-}, 2000)
+}, 5000)
 }, []);
 
 return (

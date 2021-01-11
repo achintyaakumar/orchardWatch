@@ -218,7 +218,7 @@ return (
           <tbody>
           <tr>
             <th></th>
-            <th>Orchard North</th>
+            <th>North</th>
             <th>M</th>
             <th>E</th>
             <th>X</th>
@@ -309,7 +309,7 @@ return (
           <tbody>
             <tr>
               <th></th>
-              <th>Orchard South</th>
+              <th>South</th>
               <th>G</th>
               <th>A11</th>
               <th>Y</th>

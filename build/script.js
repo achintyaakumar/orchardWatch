@@ -612,7 +612,7 @@ function getWeather() {
     
     var xhr = new XMLHttpRequest(),
         method = "GET",
-        url = "http://api.openweathermap.org/data/2.5/weather?q=London&appid=f4c4c0c68b80e96610420660681b1e46";
+        url = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=f4c4c0c68b80e96610420660681b1e46";
 
     xhr.open(method, url);
 

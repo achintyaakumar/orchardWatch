@@ -646,4 +646,4 @@ function getWeather() {
     xhr.send();
 }
 
-setInterval(getWeather, 10000);
+setInterval(getWeather, 100000);

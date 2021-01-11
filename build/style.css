@@ -160,3 +160,11 @@ nav li a.active {
   align-items: center;
   justify-content: center;
 }
+.logo {
+  float: left;
+}
+.logo img {
+  position: absolute;
+  left: 15px;
+  top: 6px;
+}

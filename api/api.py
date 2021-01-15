@@ -62,246 +62,623 @@ def get_current_time():
     df = pd.json_normalize(data['observationList'])
 
     #North air temperature
-    rowNA = df.loc[df['sensor_sn'] == "20777735-1"]
-    valueNA = rowNA.iloc[0]['us_value']
-    ATM = df.loc[df['sensor_sn'] == "20683649-1"]
-    valueATM = ATM.iloc[0]['us_value']
-    ATE = df.loc[df['sensor_sn'] == "20677838-1"]
-    valueATE = ATE.iloc[0]['us_value']
-    ATX = df.loc[df['sensor_sn'] == "20683651-1"]
-    valueATX = ATX.iloc[0]['us_value']
+    #North air temperature
+    if "20777735-1" in df.values:
+        rowNA = df.loc[df['sensor_sn'] == "20777735-1"]
+        valueNA = rowNA.iloc[0]['us_value']
+    else:
+        valueNA = 0
+
+    if "20683649-1" in df.values:
+        ATM = df.loc[df['sensor_sn'] == "20683649-1"]
+        valueATM = ATM.iloc[0]['us_value']
+    else:
+        valueATM = 0
+    
+    if "20677838-1" in df.values:
+        ATE = df.loc[df['sensor_sn'] == "20677838-1"]
+        valueATE = ATE.iloc[0]['us_value']
+    else:
+        valueATE = 0
+        
+    if "20683651-1" in df.values:
+        ATX = df.loc[df['sensor_sn'] == "20683651-1"]
+        valueATX = ATX.iloc[0]['us_value']
+    else:
+        valueATX = 0
 
     #South air temperature
-    rowSA = df.loc[df['sensor_sn'] == "20692768-1"]
-    valueSA = rowSA.iloc[0]['us_value']
-    ATG = df.loc[df['sensor_sn'] == "20677839-1"]
-    valueATG = ATG.iloc[0]['us_value']
-    ATA16 = df.loc[df['sensor_sn'] == "20677837-1"]
-    valueATA16 = ATA16.iloc[0]['us_value']
-    ATY = df.loc[df['sensor_sn'] == "20683650-1"]
-    valueATY = ATY.iloc[0]['us_value']
-    ATA11 = df.loc[df['sensor_sn'] == "20677836-1"]
-    valueATA11 = ATA11.iloc[0]['us_value']
+    if "20692768-1" in df.values:
+        rowSA = df.loc[df['sensor_sn'] == "20692768-1"]
+        valueSA = rowSA.iloc[0]['us_value']
+    else:
+        valueSA = 0
+
+    if "20677839-1" in df.values:
+        ATG = df.loc[df['sensor_sn'] == "20677839-1"]
+        valueATG = ATG.iloc[0]['us_value']
+    else:
+        valueATG = 0    
+
+    if "20677837-1" in df.values:
+        ATA16 = df.loc[df['sensor_sn'] == "20677837-1"]
+        valueATA16 = ATA16.iloc[0]['us_value']
+    else:
+        valueATA16 = 0 
+
+    if "20683650-1" in df.values:
+        ATY = df.loc[df['sensor_sn'] == "20683650-1"]
+        valueATY = ATY.iloc[0]['us_value']
+    else:
+        valueATY = 0 
+
+    if "20677836-1" in df.values:
+        ATA11 = df.loc[df['sensor_sn'] == "20677836-1"]
+        valueATA11 = ATA11.iloc[0]['us_value']
+    else:
+        valueATA11 = 0 
 
     #RH North
-    RHN12 = df.loc[df['sensor_sn'] == "20777735-2"]
-    valueRHN = RHN12.iloc[0]['us_value']
-    RHM = df.loc[df['sensor_sn'] == "20683649-2"]
-    valueRHM = RHM.iloc[0]['us_value']
-    RHE = df.loc[df['sensor_sn'] == "20677838-2"]
-    valueRHE = RHE.iloc[0]['us_value']
-    RHX = df.loc[df['sensor_sn'] == "20683651-2"]
-    valueRHX = RHX.iloc[0]['us_value']
+    if "20777735-2" in df.values:
+        RHN12 = df.loc[df['sensor_sn'] == "20777735-2"]
+        valueRHN = RHN12.iloc[0]['us_value']
+    else:
+        valueRHN = 0 
 
+    if "20683649-2" in df.values:
+        RHM = df.loc[df['sensor_sn'] == "20683649-2"]
+        valueRHM = RHM.iloc[0]['us_value']
+    else:
+        valueRHM = 0     
+
+    if "20677838-2" in df.values:
+        RHE = df.loc[df['sensor_sn'] == "20677838-2"]
+        valueRHE = RHE.iloc[0]['us_value']
+    else:
+        valueRHE = 0     
+
+    if "20683651-2" in df.values:
+        RHX = df.loc[df['sensor_sn'] == "20683651-2"]
+        valueRHX = RHX.iloc[0]['us_value']
+    else:
+        valueRHX = 0      
+        
     #RH South
-    RHS12 = df.loc[df['sensor_sn'] == "20692768-2"]
-    valueRHS = RHS12.iloc[0]['us_value']
-    RHG = df.loc[df['sensor_sn'] == "20677839-2"]
-    valueRHG = RHG.iloc[0]['us_value']
-    RHA16 = df.loc[df['sensor_sn'] == "20677837-2"]
-    valueRHA16 = RHA16.iloc[0]['us_value']
-    RHY = df.loc[df['sensor_sn'] == "20683650-2"]
-    valueRHY = RHY.iloc[0]['us_value']
-    RHA11 = df.loc[df['sensor_sn'] == "20677836-2"]
-    valueRHA11 = RHA11.iloc[0]['us_value']
+    if "20692768-2" in df.values:
+        RHS12 = df.loc[df['sensor_sn'] == "20692768-2"]
+        valueRHS = RHS12.iloc[0]['us_value']
+    else:
+        valueRHS = 0 
+
+    if "20677839-2" in df.values:
+        RHG = df.loc[df['sensor_sn'] == "20677839-2"]
+        valueRHG = RHG.iloc[0]['us_value']
+    else:
+        valueRHG = 0     
+
+    if "20677837-2" in df.values:
+        RHA16 = df.loc[df['sensor_sn'] == "20677837-2"]
+        valueRHA16 = RHA16.iloc[0]['us_value']
+    else:
+        valueRHA16 = 0      
+
+    if "20683650-2" in df.values:
+        RHY = df.loc[df['sensor_sn'] == "20683650-2"]
+        valueRHY = RHY.iloc[0]['us_value']
+    else:
+        valueRHY = 0     
+
+    if "20677836-2" in df.values:
+        RHA11 = df.loc[df['sensor_sn'] == "20677836-2"]
+        valueRHA11 = RHA11.iloc[0]['us_value']
+    else:
+        valueRHA11 = 0     
+        
 
     #Dew Point North
-    DPN = df.loc[df['sensor_sn'] == "20777735-3"]
-    valueDPN = DPN.iloc[0]['us_value']
-    DPM = df.loc[df['sensor_sn'] == "20683649-3"]
-    valueDPM = DPM.iloc[0]['us_value']
-    DPE = df.loc[df['sensor_sn'] == "20677838-3"]
-    valueDPE = DPE.iloc[0]['us_value']
-    DPX = df.loc[df['sensor_sn'] == "20683651-3"]
-    valueDPX = DPX.iloc[0]['us_value']
+    if "20777735-3" in df.values:
+        DPN = df.loc[df['sensor_sn'] == "20777735-3"]
+        valueDPN = DPN.iloc[0]['us_value']
+    else:
+        valueDPN = 0 
+
+    if "20683649-3" in df.values:
+        DPM = df.loc[df['sensor_sn'] == "20683649-3"]
+        valueDPM = DPM.iloc[0]['us_value']
+    else:
+        valueDPM = 0     
+
+    if "20677838-3" in df.values:
+        DPE = df.loc[df['sensor_sn'] == "20677838-3"]
+        valueDPE = DPE.iloc[0]['us_value']
+    else:
+        valueDPE = 0     
+
+    if "20683651-3" in df.values:
+        DPX = df.loc[df['sensor_sn'] == "20683651-3"]
+        valueDPX = DPX.iloc[0]['us_value']
+    else:
+        valueDPX = 0        
 
     #Dew Point South
-    DPS = df.loc[df['sensor_sn'] == "20692768-3"]
-    valueDPS = DPS.iloc[0]['us_value'] 
-    DPG = df.loc[df['sensor_sn'] == "20677839-3"]
-    valueDPG = DPG.iloc[0]['us_value']
-    DPA16 = df.loc[df['sensor_sn'] == "20677837-3"]
-    valueDPA16 = DPA16.iloc[0]['us_value']
-    DPY = df.loc[df['sensor_sn'] == "20683650-3"]
-    valueDPY = DPY.iloc[0]['us_value']
-    DPA11 = df.loc[df['sensor_sn'] == "20677836-3"]
-    valueDPA11 = DPA11.iloc[0]['us_value']
+    if "20692768-3" in df.values:
+        DPS = df.loc[df['sensor_sn'] == "20692768-3"]
+        valueDPS = DPS.iloc[0]['us_value']
+    else:
+        valueDPS = 0 
 
+    if "20677839-3" in df.values:
+        DPG = df.loc[df['sensor_sn'] == "20677839-3"]
+        valueDPG = DPG.iloc[0]['us_value']
+    else:
+        valueDPG = 0     
+
+    if "20677837-3" in df.values:
+        DPA16 = df.loc[df['sensor_sn'] == "20677837-3"]
+        valueDPA16 = DPA16.iloc[0]['us_value']
+    else:
+        valueDPA16 = 0      
+
+    if "20683650-3" in df.values:
+        DPY = df.loc[df['sensor_sn'] == "20683650-3"]
+        valueDPY = DPY.iloc[0]['us_value']
+    else:
+        valueDPY = 0     
+
+    if "20677836-3" in df.values:
+        DPA11 = df.loc[df['sensor_sn'] == "20677836-3"]
+        valueDPA11 = DPA11.iloc[0]['us_value']
+    else:
+        valueDPA11 = 0    
+  
     #Temperature soil North
-    TSN = df.loc[df['sensor_sn'] == "20770089-1"]
-    valueTSN = TSN.iloc[0]['us_value']
-    TSM = df.loc[df['sensor_sn'] == "20683693-1"]
-    valueTSM = TSM.iloc[0]['us_value']
-    TSE = df.loc[df['sensor_sn'] == "20683722-1"]
-    valueTSE = TSE.iloc[0]['us_value']
-    TSX = df.loc[df['sensor_sn'] == "20683695-1"]
-    valueTSX = TSX.iloc[0]['us_value']
+    if "20770089-1" in df.values:
+        TSN = df.loc[df['sensor_sn'] == "20770089-1"]
+        valueTSN = TSN.iloc[0]['us_value']
+    else:
+        valueTSN = 0 
+
+    if "20683693-1" in df.values:
+        TSM = df.loc[df['sensor_sn'] == "20683693-1"]
+        valueTSM = TSM.iloc[0]['us_value']
+    else:
+        valueTSM = 0     
+
+    if "20683722-1" in df.values:
+        TSE = df.loc[df['sensor_sn'] == "20683722-1"]
+        valueTSE = TSE.iloc[0]['us_value']
+    else:
+        valueTSE = 0     
+
+    if "20683695-1" in df.values:
+        TSX = df.loc[df['sensor_sn'] == "20683695-1"]
+        valueTSX = TSX.iloc[0]['us_value']
+    else:
+        valueTSX = 0  
 
     #Temperature soil South
-    TSS = df.loc[df['sensor_sn'] == "20684342-1"]
-    valueTSS = TSS.iloc[0]['us_value']
-    TSG = df.loc[df['sensor_sn'] == "20683697-1"]
-    valueTSG = TSG.iloc[0]['us_value']
-    TSA16 = df.loc[df['sensor_sn'] == "20683696-1"]
-    valueTSA16 = TSA16.iloc[0]['us_value']
-    TSY = df.loc[df['sensor_sn'] == "20683694-1"]
-    valueTSY = TSY.iloc[0]['us_value']
-    TSA11 = df.loc[df['sensor_sn'] == "20683723-1"]
-    valueTSA11 = TSA11.iloc[0]['us_value']
+    if "20684342-1" in df.values:
+        TSS = df.loc[df['sensor_sn'] == "20684342-1"]
+        valueTSS = TSS.iloc[0]['us_value']
+    else:
+        valueTSS = 0 
 
+    if "20683697-1" in df.values:
+        TSG = df.loc[df['sensor_sn'] == "20683697-1"]
+        valueTSG = TSG.iloc[0]['us_value']
+    else:
+        valueTSG = 0     
+
+    if "20683696-1" in df.values:
+        TSA16 = df.loc[df['sensor_sn'] == "20683696-1"]
+        valueTSA16 = TSA16.iloc[0]['us_value']
+    else:
+        valueTSA16 = 0      
+
+    if "20683694-1" in df.values:
+        TSY = df.loc[df['sensor_sn'] == "20683694-1"]
+        valueTSY = TSY.iloc[0]['us_value']
+    else:
+        valueTSY = 0     
+
+    if "20683723-1" in df.values:
+        TSA11 = df.loc[df['sensor_sn'] == "20683723-1"]
+        valueTSA11 = TSA11.iloc[0]['us_value']
+    else:
+        valueTSA11 = 0 
+  
     #Leaf Wetness North
-    LWN = df.loc[df['sensor_sn'] == "20774075-1"]
-    valueLWN = LWN.iloc[0]['us_value']
-    LWM = df.loc[df['sensor_sn'] == "20776878-1"]
-    valueLWM = LWM.iloc[0]['us_value']
-    LWE = df.loc[df['sensor_sn'] == "20778340-1"]
-    valueLWE = LWE.iloc[0]['us_value']
-    LWX = df.loc[df['sensor_sn'] == "20780842-1"]
-    valueLWX = LWX.iloc[0]['us_value']
+    if "20774075-1" in df.values:
+        LWN = df.loc[df['sensor_sn'] == "20774075-1"]
+        valueLWN = LWN.iloc[0]['us_value']
+    else:
+        valueLWN = 0 
+
+    if "20776878-1" in df.values:
+        LWM = df.loc[df['sensor_sn'] == "20776878-1"]
+        valueLWM = LWM.iloc[0]['us_value']
+    else:
+        valueLWM = 0     
+
+    if "20778340-1" in df.values:
+        LWE = df.loc[df['sensor_sn'] == "20778340-1"]
+        valueLWE = LWE.iloc[0]['us_value']
+    else:
+        valueLWE = 0     
+
+    if "20780842-1" in df.values:
+        LWX = df.loc[df['sensor_sn'] == "20780842-1"]
+        valueLWX = LWX.iloc[0]['us_value']
+    else:
+        valueLWX = 0 
 
     #Leaf Wetness South
-    LWS = df.loc[df['sensor_sn'] == "20650716-1"]
-    valueLWS = LWS.iloc[0]['us_value']
-    LWG = df.loc[df['sensor_sn'] == "20778341-1"]
-    valueLWG = LWG.iloc[0]['us_value']
-    LWA16 = df.loc[df['sensor_sn'] == "20776877-1"]
-    valueLWA16 = LWA16.iloc[0]['us_value']
-    LWY = df.loc[df['sensor_sn'] == "20778339-1"]
-    valueLWY = LWY.iloc[0]['us_value']
-    LWA11 = df.loc[df['sensor_sn'] == "20778342-1"]
-    valueLWA11 = LWA11.iloc[0]['us_value']
+    if "20650716-1" in df.values:
+        LWS = df.loc[df['sensor_sn'] == "20650716-1"]
+        valueLWS = LWS.iloc[0]['us_value']
+    else:
+        valueLWS = 0 
 
+    if "20778341-1" in df.values:
+        LWG = df.loc[df['sensor_sn'] == "20778341-1"]
+        valueLWG = LWG.iloc[0]['us_value']
+    else:
+        valueLWG = 0     
+
+    if "20776877-1" in df.values:
+        LWA16 = df.loc[df['sensor_sn'] == "20776877-1"]
+        valueLWA16 = LWA16.iloc[0]['us_value']
+    else:
+        valueLWA16 = 0      
+
+    if "20778339-1" in df.values:
+        LWY = df.loc[df['sensor_sn'] == "20778339-1"]
+        valueLWY = LWY.iloc[0]['us_value']
+    else:
+        valueLWY = 0     
+
+    if "20778342-1" in df.values:
+        LWA11 = df.loc[df['sensor_sn'] == "20778342-1"]
+        valueLWA11 = LWA11.iloc[0]['us_value']
+    else:
+        valueLWA11 = 0 
+        
     #Rain North
-    RN = df.loc[df['sensor_sn'] == "20775973-1"]
-    valueRN = RN.iloc[0]['us_value']
-    RM = df.loc[df['sensor_sn'] == "20683599-1"]
-    valueRM = RM.iloc[0]['us_value']
-    RE = df.loc[df['sensor_sn'] == "20683600-1"]
-    valueRE = RE.iloc[0]['us_value']
-    RX = df.loc[df['sensor_sn'] == "20629502-1"]
-    valueRX = RX.iloc[0]['us_value']
+    if "20775973-1" in df.values:
+        RN = df.loc[df['sensor_sn'] == "20775973-1"]
+        valueRN = RN.iloc[0]['us_value']
+    else:
+        valueRN = 0 
+
+    if "20683599-1" in df.values:
+        RM = df.loc[df['sensor_sn'] == "20683599-1"]
+        valueRM = RM.iloc[0]['us_value']
+    else:
+        valueRM = 0     
+
+    if "20683600-1" in df.values:
+        RE = df.loc[df['sensor_sn'] == "20683600-1"]
+        valueRE = RE.iloc[0]['us_value']
+    else:
+        valueRE = 0     
+
+    if "20629502-1" in df.values:
+        RX = df.loc[df['sensor_sn'] == "20629502-1"]
+        valueRX = RX.iloc[0]['us_value']
+    else:
+        valueRX = 0 
 
     #Rain South
-    RS = df.loc[df['sensor_sn'] == "20696900-1"]
-    valueRS = RS.iloc[0]['us_value'] 
-    RG = df.loc[df['sensor_sn'] == "20810982-1"]
-    valueRG = RG.iloc[0]['us_value']
-    RA16 = df.loc[df['sensor_sn'] == "20683603-1"]
-    valueRA16 = RA16.iloc[0]['us_value']
-    RY = df.loc[df['sensor_sn'] == "20683602-1"]
-    valueRY = RY.iloc[0]['us_value']
-    RA11 = df.loc[df['sensor_sn'] == "20683601-1"]
-    valueRA11 = RA11.iloc[0]['us_value']
+    if "20696900-1" in df.values:
+        RS = df.loc[df['sensor_sn'] == "20696900-1"]
+        valueRS = RS.iloc[0]['us_value']
+    else:
+        valueRS = 0 
 
+    if "20810982-1" in df.values:
+        RG = df.loc[df['sensor_sn'] == "20810982-1"]
+        valueRG = RG.iloc[0]['us_value']
+    else:
+        valueRG = 0     
+
+    if "20683603-1" in df.values:
+        RA16 = df.loc[df['sensor_sn'] == "20683603-1"]
+        valueRA16 = RA16.iloc[0]['us_value']
+    else:
+        valueRA16 = 0      
+
+    if "20683602-1" in df.values:
+        RY = df.loc[df['sensor_sn'] == "20683602-1"]
+        valueRY = RY.iloc[0]['us_value']
+    else:
+        valueRY = 0     
+
+    if "20683601-1" in df.values:
+        RA11 = df.loc[df['sensor_sn'] == "20683601-1"]
+        valueRA11 = RA11.iloc[0]['us_value']
+    else:
+        valueRA11 = 0 
+  
     #Solar Radiation North
-    SRN = df.loc[df['sensor_sn'] == "20779661-1"]
-    valueSRN = SRN.iloc[0]['us_value']
-    SRM = df.loc[df['sensor_sn'] == "20864948-1"]
-    valueSRM = SRM.iloc[0]['us_value']
-    SRE = df.loc[df['sensor_sn'] == "20413294-1"]
-    valueSRE = SRE.iloc[0]['us_value']
-    SRX = df.loc[df['sensor_sn'] == "20735859-1"]
-    valueSRX = SRX.iloc[0]['us_value']
+    if "20779661-1" in df.values:
+        SRN = df.loc[df['sensor_sn'] == "20779661-1"]
+        valueSRN = SRN.iloc[0]['us_value']
+    else:
+        valueSRN = 0 
+
+    if "20864948-1" in df.values:
+        SRM = df.loc[df['sensor_sn'] == "20864948-1"]
+        valueSRM = SRM.iloc[0]['us_value']
+    else:
+        valueSRM = 0     
+
+    if "20683600-1" in df.values:
+        SRE = df.loc[df['sensor_sn'] == "20413294-1"]
+        valueSRE = SRE.iloc[0]['us_value']
+    else:
+        valueSRE = 0     
+
+    if "20629502-1" in df.values:
+        SRX = df.loc[df['sensor_sn'] == "20735859-1"]
+        valueSRX = SRX.iloc[0]['us_value']
+    else:
+        valueSRX = 0 
 
     #Solar Radiation South
-    SRS = df.loc[df['sensor_sn'] == "20683743-1"]
-    valueSRS = SRS.iloc[0]['us_value'] 
-    SRG = df.loc[df['sensor_sn'] == "20413291-1"]
-    valueSRG = SRG.iloc[0]['us_value']
-    SRA16 = df.loc[df['sensor_sn'] == "20413293-1"]
-    valueSRA16 = SRA16.iloc[0]['us_value']
-    SRY = df.loc[df['sensor_sn'] == "20454637-1"]
-    valueSRY = SRY.iloc[0]['us_value']
-    SRA11 = df.loc[df['sensor_sn'] == "20413295-1"]
-    valueSRA11 = SRA11.iloc[0]['us_value']
+    if "20683743-1" in df.values:
+        SRS = df.loc[df['sensor_sn'] == "20683743-1"]
+        valueSRS = SRS.iloc[0]['us_value'] 
+    else:
+        valueSRS = 0 
+
+    if "20413291-1" in df.values:
+        SRG = df.loc[df['sensor_sn'] == "20413291-1"]
+        valueSRG = SRG.iloc[0]['us_value']
+    else:
+        valueSRG = 0     
+
+    if "20413293-1" in df.values:
+        SRA16 = df.loc[df['sensor_sn'] == "20413293-1"]
+        valueSRA16 = SRA16.iloc[0]['us_value']
+    else:
+        valueSRA16 = 0      
+
+    if "20454637-1" in df.values:
+        SRY = df.loc[df['sensor_sn'] == "20454637-1"]
+        valueSRY = SRY.iloc[0]['us_value']
+    else:
+        valueSRY = 0     
+
+    if "20413295-1" in df.values:
+        SRA11 = df.loc[df['sensor_sn'] == "20413295-1"]
+        valueSRA11 = SRA11.iloc[0]['us_value']
+    else:
+        valueSRA11 = 0 
 
     #Water Content Soil North
-    WCSN = df.loc[df['sensor_sn'] == "20773509-1"]
-    valueWCSN = WCSN.iloc[0]['us_value'] 
-    WCM = df.loc[df['sensor_sn'] == "20683612-1"]
-    valueWCM = WCM.iloc[0]['us_value']
-    WCE = df.loc[df['sensor_sn'] == "20683614-1"]
-    valueWCE = WCE.iloc[0]['us_value']
-    WCX = df.loc[df['sensor_sn'] == "20683610-1"]
-    valueWCX = WCX.iloc[0]['us_value']
+    if "20773509-1" in df.values:
+        WCSN = df.loc[df['sensor_sn'] == "20773509-1"]
+        valueWCSN = WCSN.iloc[0]['us_value']
+    else:
+        valueWCSN = 0 
+
+    if "20683612-1" in df.values:
+        WCM = df.loc[df['sensor_sn'] == "20683612-1"]
+        valueWCM = WCM.iloc[0]['us_value']
+    else:
+        valueWCM = 0     
+
+    if "20683614-1" in df.values:
+        WCE = df.loc[df['sensor_sn'] == "20683614-1"]
+        valueWCE = WCE.iloc[0]['us_value']
+    else:
+        valueWCE = 0     
+
+    if "20683610-1" in df.values:
+        WCX = df.loc[df['sensor_sn'] == "20683610-1"]
+        valueWCX = WCX.iloc[0]['us_value']
+    else:
+        valueWCX = 0  
 
     #Water Content Soil South
-    WCSS = df.loc[df['sensor_sn'] == "20696181-1"]
-    valueWCSS = WCSS.iloc[0]['us_value']
-    WCG = df.loc[df['sensor_sn'] == "20683611-1"]
-    valueWCG = WCG.iloc[0]['us_value']
-    WCA16 = df.loc[df['sensor_sn'] == "20543770-1"]
-    valueWCA16 = WCA16.iloc[0]['us_value']
-    WCY = df.loc[df['sensor_sn'] == "20683615-1"]
-    valueWCY = WCY.iloc[0]['us_value']
-    WCA11 = df.loc[df['sensor_sn'] == "20683609-1"]
-    valueWCA11 = WCA11.iloc[0]['us_value'] 
+    if "20696181-1" in df.values:
+        WCSS = df.loc[df['sensor_sn'] == "20696181-1"]
+        valueWCSS = WCSS.iloc[0]['us_value']
+    else:
+        valueWCSS = 0 
+
+    if "20683611-1" in df.values:
+        WCG = df.loc[df['sensor_sn'] == "20683611-1"]
+        valueWCG = WCG.iloc[0]['us_value']
+    else:
+        valueWCG = 0     
+
+    if "20543770-1" in df.values:
+        WCA16 = df.loc[df['sensor_sn'] == "20543770-1"]
+        valueWCA16 = WCA16.iloc[0]['us_value']
+    else:
+        valueWCA16 = 0      
+
+    if "20683615-1" in df.values:
+        WCY = df.loc[df['sensor_sn'] == "20683615-1"]
+        valueWCY = WCY.iloc[0]['us_value']
+    else:
+        valueWCY = 0     
+
+    if "20683609-1" in df.values:
+        WCA11 = df.loc[df['sensor_sn'] == "20683609-1"]
+        valueWCA11 = WCA11.iloc[0]['us_value'] 
+    else:
+        valueWCA11 = 0 
 
     #Wind Speeds North
-    WSN = df.loc[df['sensor_sn'] == "20772423-1"]
-    valueWSN = WSN.iloc[0]['us_value']
-    WSM = df.loc[df['sensor_sn'] == "20696852-1"]
-    valueWSM = WSM.iloc[0]['us_value']
-    WSE = df.loc[df['sensor_sn'] == "20657340-1"]
-    valueWSE = WSE.iloc[0]['us_value']
-    WSX = df.loc[df['sensor_sn'] == "20696851-1"]
-    valueWSX = WSX.iloc[0]['us_value']
+    if "20772423-1" in df.values:
+        WSN = df.loc[df['sensor_sn'] == "20772423-1"]
+        valueWSN = WSN.iloc[0]['us_value']
+    else:
+        valueWSN = 0 
+
+    if "20696852-1" in df.values:
+        WSM = df.loc[df['sensor_sn'] == "20696852-1"]
+        valueWSM = WSM.iloc[0]['us_value']
+    else:
+        valueWSM = 0     
+
+    if "20657340-1" in df.values:
+        WSE = df.loc[df['sensor_sn'] == "20657340-1"]
+        valueWSE = WSE.iloc[0]['us_value']
+    else:
+        valueWSE = 0     
+
+    if "20696851-1" in df.values:
+        WSX = df.loc[df['sensor_sn'] == "20696851-1"]
+        valueWSX = WSX.iloc[0]['us_value']
+    else:
+        valueWSX = 0 
 
     #Wind Speeds South
-    WSS = df.loc[df['sensor_sn'] == "20673566-1"]
-    valueWSS = WSS.iloc[0]['us_value']
-    WSG = df.loc[df['sensor_sn'] == "20657341-1"]
-    valueWSG = WSG.iloc[0]['us_value']
-    WSA16 = df.loc[df['sensor_sn'] == "20696853-1"]
-    valueWSA16 = WSA16.iloc[0]['us_value']
-    WSY = df.loc[df['sensor_sn'] == "20851758-1"]
-    valueWSY = WSY.iloc[0]['us_value']
-    WSA11 = df.loc[df['sensor_sn'] == "20696855-1"]
-    valueWSA11 = WSA11.iloc[0]['us_value']
+    if "20673566-1" in df.values:
+        WSS = df.loc[df['sensor_sn'] == "20673566-1"]
+        valueWSS = WSS.iloc[0]['us_value']
+    else:
+        valueWSS = 0 
+
+    if "20657341-1" in df.values:
+        WSG = df.loc[df['sensor_sn'] == "20657341-1"]
+        valueWSG = WSG.iloc[0]['us_value']
+    else:
+        valueWSG = 0     
+
+    if "20696853-1" in df.values:
+        WSA16 = df.loc[df['sensor_sn'] == "20696853-1"]
+        valueWSA16 = WSA16.iloc[0]['us_value']
+    else:
+        valueWSA16 = 0      
+
+    if "20851758-1" in df.values:
+        WSY = df.loc[df['sensor_sn'] == "20851758-1"]
+        valueWSY = WSY.iloc[0]['us_value']
+    else:
+        valueWSY = 0     
+
+    if "20696855-1" in df.values:
+        WSA11 = df.loc[df['sensor_sn'] == "20696855-1"]
+        valueWSA11 = WSA11.iloc[0]['us_value']
+    else:
+        valueWSA11 = 0 
 
     #Gust Speeds North
-    GSN = df.loc[df['sensor_sn'] == "20772423-2"]
-    valueGSN = GSN.iloc[0]['us_value']
-    GSM = df.loc[df['sensor_sn'] == "20696852-2"]
-    valueGSM = GSM.iloc[0]['us_value']
-    GSE = df.loc[df['sensor_sn'] == "20657340-2"]
-    valueGSE = GSE.iloc[0]['us_value']
-    GSX = df.loc[df['sensor_sn'] == "20696851-2"]
-    valueGSX = GSX.iloc[0]['us_value']
+    if "20772423-2" in df.values:
+        GSN = df.loc[df['sensor_sn'] == "20772423-2"]
+        valueGSN = GSN.iloc[0]['us_value']
+    else:
+        valueGSN = 0 
+
+    if "20696852-2" in df.values:
+        GSM = df.loc[df['sensor_sn'] == "20696852-2"]
+        valueGSM = GSM.iloc[0]['us_value']
+    else:
+        valueGSM = 0     
+
+    if "20657340-2" in df.values:
+        GSE = df.loc[df['sensor_sn'] == "20657340-2"]
+        valueGSE = GSE.iloc[0]['us_value']
+    else:
+        valueGSE = 0     
+
+    if "20696851-1" in df.values:
+        GSX = df.loc[df['sensor_sn'] == "20696851-2"]
+        valueGSX = GSX.iloc[0]['us_value']
+    else:
+        valueGSX = 0 
 
     #Gust Speeds South
-    GSS = df.loc[df['sensor_sn'] == "20673566-2"]
-    valueGSS = GSS.iloc[0]['us_value']
-    GSG = df.loc[df['sensor_sn'] == "20657341-2"]
-    valueGSG = GSG.iloc[0]['us_value']
-    GSA16 = df.loc[df['sensor_sn'] == "20696853-2"]
-    valueGSA16 = GSA16.iloc[0]['us_value']
-    GSY = df.loc[df['sensor_sn'] == "20851758-2"]
-    valueGSY = GSY.iloc[0]['us_value']
-    GSA11 = df.loc[df['sensor_sn'] == "20696855-2"]
-    valueGSA11 = GSA11.iloc[0]['us_value']
+    if "20673566-2" in df.values:
+        GSS = df.loc[df['sensor_sn'] == "20673566-2"]
+        valueGSS = GSS.iloc[0]['us_value']
+    else:
+        valueGSS = 0 
+
+    if "20657341-2" in df.values:
+        GSG = df.loc[df['sensor_sn'] == "20657341-2"]
+        valueGSG = GSG.iloc[0]['us_value']
+    else:
+        valueGSG = 0     
+
+    if "20696853-2" in df.values:
+        GSA16 = df.loc[df['sensor_sn'] == "20696853-2"]
+        valueGSA16 = GSA16.iloc[0]['us_value']
+    else:
+        valueGSA16 = 0      
+
+    if "20851758-2" in df.values:
+        GSY = df.loc[df['sensor_sn'] == "20851758-2"]
+        valueGSY = GSY.iloc[0]['us_value']
+    else:
+        valueGSY = 0     
+
+    if "20696855-2" in df.values:
+        GSA11 = df.loc[df['sensor_sn'] == "20696855-2"]
+        valueGSA11 = GSA11.iloc[0]['us_value']
+    else:
+        valueGSA11 = 0 
 
     #Wind Direction North (don't round)
-    WDN = df.loc[df['sensor_sn'] == "20774012-1"]
-    valueWDN = WDN.iloc[0]['us_value']
-    WDM = df.loc[df['sensor_sn'] == "20696852-3"]
-    valueWDM = WDM.iloc[0]['us_value']
-    WDE = df.loc[df['sensor_sn'] == "20657340-3"]
-    valueWDE = WDE.iloc[0]['us_value']
-    WDX = df.loc[df['sensor_sn'] == "20696851-3"]
-    valueWDX = WDX.iloc[0]['us_value']
+    if "20774012-1" in df.values:
+        WDN = df.loc[df['sensor_sn'] == "20774012-1"]
+        valueWDN = WDN.iloc[0]['us_value']
+    else:
+        valueWDN = 0 
+
+    if "20696852-3" in df.values:
+        WDM = df.loc[df['sensor_sn'] == "20696852-3"]
+        valueWDM = WDM.iloc[0]['us_value']
+    else:
+        valueWDM = 0     
+
+    if "20657340-3" in df.values:
+        WDE = df.loc[df['sensor_sn'] == "20657340-3"]
+        valueWDE = WDE.iloc[0]['us_value']
+    else:
+        valueWDE = 0     
+
+    if "20696851-3" in df.values:
+        WDX = df.loc[df['sensor_sn'] == "20696851-3"]
+        valueWDX = WDX.iloc[0]['us_value']
+    else:
+        valueWDX = 0      
 
     #Wind Direction South (don't round)
-    WDS = df.loc[df['sensor_sn'] == "20677657-1"]
-    valueWDS = WDS.iloc[0]['us_value']
-    WDG = df.loc[df['sensor_sn'] == "20657341-3"]
-    valueWDG = WDG.iloc[0]['us_value']
-    WDA16 = df.loc[df['sensor_sn'] == "20696853-3"]
-    valueWDA16 = WDA16.iloc[0]['us_value']
-    WDY = df.loc[df['sensor_sn'] == "20851758-3"]
-    valueWDY = WDY.iloc[0]['us_value']
-    WDA11 = df.loc[df['sensor_sn'] == "20696855-3"]
-    valueWDA11 = WDA11.iloc[0]['us_value']
+    if "20677657-1" in df.values:
+        WDS = df.loc[df['sensor_sn'] == "20677657-1"]
+        valueWDS = WDS.iloc[0]['us_value']
+    else:
+        valueWDS = 0 
+
+    if "20657341-3" in df.values:
+        WDG = df.loc[df['sensor_sn'] == "20657341-3"]
+        valueWDG = WDG.iloc[0]['us_value']
+    else:
+        valueWDG = 0     
+
+    if "20696853-3" in df.values:
+        WDA16 = df.loc[df['sensor_sn'] == "20696853-3"]
+        valueWDA16 = WDA16.iloc[0]['us_value']
+    else:
+        valueWDA16 = 0      
+
+    if "20851758-3" in df.values:
+        WDY = df.loc[df['sensor_sn'] == "20851758-3"]
+        valueWDY = WDY.iloc[0]['us_value']
+    else:
+        valueWDY = 0     
+
+    if "20696855-3" in df.values:
+        WDA11 = df.loc[df['sensor_sn'] == "20696855-3"]
+        valueWDA11 = WDA11.iloc[0]['us_value']
+    else:
+        valueWDA11 = 0 
+  
 
     return {'tempN': "%.2f" % float(valueNA), 'tempS': "%.2f" % float(valueSA),
     'RHN': "%.2f" % float(valueRHN), 'RHS': "%.2f" % float(valueRHS),

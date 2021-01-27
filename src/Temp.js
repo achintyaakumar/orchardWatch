@@ -102,6 +102,15 @@ const [currentWDA16, setCurrentWDA16] = useState(0);
 const [currentWDY, setCurrentWDY] = useState(0);
 const [currentWDA11, setCurrentWDA11] = useState(0);
 const [currentTime, setCurrentTime] = useState(0);
+const [ScLWN, setScLWN] = useState("Calculating..");
+const [ScLWM, setScLWM] = useState("Calculating..");
+const [ScLWE, setScLWE] = useState("Calculating..");
+const [ScLWX, setScLWX] = useState("Calculating..");
+const [ScLWS, setScLWS] = useState("Calculating..");
+const [ScLWG, setScLWG] = useState("Calculating..");
+const [ScLWA16, setScLWA16] = useState("Calculating..");
+const [ScLWY, setScLWY] = useState("Calculating..");
+const [ScLWA11, setScLWA11] = useState("Calculating..");
 
 useEffect(() => {
   setInterval(() => {
@@ -210,6 +219,23 @@ useEffect(() => {
 }, 5000)
 }, []);
 
+useEffect(() => {
+  setInterval(() => {
+  fetch('/api/scab').then(res => res.json()).then(data => {
+    setScLWN(data.ScLWN);
+    setScLWM(data.ScLWM);
+    setScLWE(data.ScLWE);
+    setScLWX(data.ScLWX);
+    setScLWS(data.ScLWS);
+    setScLWG(data.ScLWG);
+    setScLWA16(data.ScLWA16);
+    setScLWY(data.ScLWY);
+    setScLWA11(data.ScLWA11);
+  });
+}, 5000)
+}, []);
+
+console.log(ScLWN);
 return (
     <div className="App">
       <body className="App-body">
@@ -299,6 +325,13 @@ return (
             <td>{currentWCM} m³/m³</td>
             <td>{currentWCE} m³/m³</td>
             <td>{currentWCX} m³/m³</td>
+          </tr>
+          <tr>
+            <td>Apple Scab Risk</td>
+            <td>{ScLWN}</td>
+            <td>{ScLWM}</td>
+            <td>{ScLWE}</td>
+            <td>{ScLWX}</td>
           </tr>
           </tbody>
         </table>
@@ -402,6 +435,14 @@ return (
             <td>{currentWCA16} m³/m³</td>
             <td>{currentWCY} m³/m³</td>
             <td>{currentWCA11} m³/m³</td>
+          </tr>
+          <tr>
+            <td>Apple Scab Risk</td>
+            <td>{ScLWS}</td>
+            <td>{ScLWG}</td>
+            <td>{ScLWA16}</td>
+            <td>{ScLWY}</td>
+            <td>{ScLWA11}</td>
           </tr>
           </tbody>
         </table>

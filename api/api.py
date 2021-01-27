@@ -3,6 +3,7 @@ from flask import Flask
 import urllib.request
 import json
 import pandas as pd
+import numpy as np
 from pprint import pprint
 import config
 import pytz
@@ -712,3 +713,177 @@ def get_current_time():
     'WDS': "%.2f" % float(valueWDS), 'WDG':"%.2f" % float(valueWDG), 'WDA16': "%.2f" % float(valueWDA16), 'WDY':"%.2f" % float(valueWDY), 'WDA11': "%.2f" % float(valueWDA11),
     'time': time
     }
+
+
+@app.route('/api/scab')
+def apple_scab():
+    curTime = (dt.now(timezone.utc) - timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')
+    prevTime = (dt.now(timezone.utc) - timedelta(minutes=15) - timedelta(hours=41)).strftime('%Y-%m-%d %H:%M:%S') #Last 41 hours
+
+    #Specify values
+
+    url = "https://webservice.hobolink.com/restv2/data/json"
+
+    values = {
+    "action": "",
+    "authentication": {
+        "password": "HobOnset8!",
+        "token": "b69168e0d54c44e108922619d8ea1bac88d18ced",
+        "user": "procon"
+    },
+    "query": {
+        "end_date_time": curTime,
+        "loggers": [20777720,20699245,1],
+        "start_date_time": prevTime
+    }
+    }
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    }
+
+    #Get data
+    data = json.dumps(values).encode("utf-8")
+    #pprint(data)
+
+    try:
+        req = urllib.request.Request(url, data, headers)
+        with urllib.request.urlopen(req) as f:
+            res = f.read()
+        #pprint(res.decode())
+    except Exception as e:
+        pprint(e)
+    
+    data = json.loads(res.decode())
+    df = pd.json_normalize(data['observationList']) 
+
+    AvgT = 0
+
+    #Leaf Wetness North
+    if "20775973-1" in df.values and "20774075-1" in df.values and  df.loc[df['sensor_sn'] == "20775973-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
+        AvgT = df.loc[df['sensor_sn'] == "20777735-1"]['us_value'].mean() #get avg of temp value
+        Count = sum(df.loc[df['sensor_sn'] == "20774075-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
+        if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
+        (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
+        (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
+        (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            ScLWN = "Yes"
+        else:
+            ScLWN = "No"   
+    else:
+        ScLWN = "No"
+
+    #M
+    if "20683599-1" in df.values and "20776878-1" in df.values and  df.loc[df['sensor_sn'] == "20683599-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
+        AvgT = df.loc[df['sensor_sn'] == "20683649-1"]['us_value'].mean() #get avg of temp value
+        Count = sum(df.loc[df['sensor_sn'] == "20776878-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
+        if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
+        (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
+        (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
+        (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            ScLWM = "Yes"
+        else:
+            ScLWM = "No"   
+    else:
+        ScLWM = "No" 
+
+    #E
+    if "20683600-1" in df.values and "20778340-1" in df.values and  df.loc[df['sensor_sn'] == "20683600-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
+        AvgT = df.loc[df['sensor_sn'] == "20677838-1"]['us_value'].mean() #get avg of temp value
+        Count = sum(df.loc[df['sensor_sn'] == "20778340-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
+        if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
+        (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
+        (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
+        (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            ScLWE = "Yes"
+        else:
+            ScLWE = "No"   
+    else:
+        ScLWE = "No"     
+
+    #X
+    if "20629502-1" in df.values and "20780842-1" in df.values and  df.loc[df['sensor_sn'] == "20629502-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
+        AvgT = df.loc[df['sensor_sn'] == "20683651-1"]['us_value'].mean() #get avg of temp value
+        Count = sum(df.loc[df['sensor_sn'] == "20780842-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
+        if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
+        (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
+        (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
+        (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            ScLWX = "Yes"
+        else:
+            ScLWX = "No"   
+    else:
+        ScLWX = "No" 
+
+    #Leaf Wetness South
+    if "20696900-1" in df.values and "20650716-1" in df.values and  df.loc[df['sensor_sn'] == "20696900-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
+        AvgT = df.loc[df['sensor_sn'] == "20692768-1"]['us_value'].mean() #get avg of temp value
+        Count = sum(df.loc[df['sensor_sn'] == "20650716-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
+        if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
+        (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
+        (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
+        (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            ScLWS = "Yes"
+        else:
+            ScLWS = "No"   
+    else:
+        ScLWS = "No" 
+
+    #G
+    if "20810982-1" in df.values and "20778341-1" in df.values and  df.loc[df['sensor_sn'] == "20810982-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
+        AvgT = df.loc[df['sensor_sn'] == "20677839-1"]['us_value'].mean() #get avg of temp value
+        Count = sum(df.loc[df['sensor_sn'] == "20778341-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
+        if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
+        (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
+        (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
+        (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            ScLWG = "Yes"
+        else:
+            ScLWG = "No"   
+    else:
+        ScLWG = "No" 
+
+    #A16
+    if "20683603-1" in df.values and "20776877-1" in df.values and  df.loc[df['sensor_sn'] == "20683603-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
+        AvgT = df.loc[df['sensor_sn'] == "20677837-1"]['us_value'].mean() #get avg of temp value
+        Count = sum(df.loc[df['sensor_sn'] == "20776877-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
+        if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
+        (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
+        (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
+        (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            ScLWA16 = "Yes"
+        else:
+            ScLWA16 = "No"   
+    else:
+        ScLWA16 = "No"  
+
+    #Y
+    if "20683602-1" in df.values and "20778339-1" in df.values and  df.loc[df['sensor_sn'] == "20683602-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
+        AvgT = df.loc[df['sensor_sn'] == "20683650-1"]['us_value'].mean() #get avg of temp value
+        Count = sum(df.loc[df['sensor_sn'] == "20778339-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
+        if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
+        (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
+        (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
+        (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            ScLWY = "Yes"
+        else:
+            ScLWY = "No"   
+    else:
+        ScLWY = "No"  
+
+    #A11
+    if "20683601-1" in df.values and "20778342-1" in df.values and  df.loc[df['sensor_sn'] == "20683601-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
+        AvgT = df.loc[df['sensor_sn'] == "20677836-1"]['us_value'].mean() #get avg of temp value
+        Count = sum(df.loc[df['sensor_sn'] == "20778342-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
+        if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
+        (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
+        (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
+        (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            ScLWA11 = "Yes"
+        else:
+            ScLWA11 = "No"   
+    else:
+        ScLWA11 = "No"  
+    
+
+    return{'ScLWN': ScLWM, 'ScLWM': ScLWM, 'ScLWE': ScLWE, 'ScLWX': ScLWX, 'ScLWG': ScLWG, 'ScLWA16': ScLWA16, 'ScLWY': ScLWY, 'ScLWA11': ScLWA11, 'ScLWS': ScLWS}

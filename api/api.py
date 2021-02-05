@@ -1,5 +1,6 @@
 from datetime import datetime as dt, timedelta, timezone
 from flask import Flask
+from flask import render_template
 import urllib.request
 import json
 import pandas as pd
@@ -761,7 +762,7 @@ def apple_scab():
 
     #Leaf Wetness North
     if "20775973-1" in df.values and "20774075-1" in df.values and  df.loc[df['sensor_sn'] == "20775973-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-        AvgT = df.loc[df['sensor_sn'] == "20777735-1"]['us_value'].mean() #get avg of temp value
+        AvgT = df.loc[df['sensor_sn'] == "20777735-1"]['us_value'].mean() #get avg of temp value /////CHANGE
         Count = sum(df.loc[df['sensor_sn'] == "20774075-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
         if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
         (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or

@@ -232,7 +232,7 @@ useEffect(() => {
     setScLWY(data.ScLWY);
     setScLWA11(data.ScLWA11);
   });
-}, 5000)
+}, 15000)
 }, []);
 
 console.log(ScLWN);

@@ -64,7 +64,6 @@ def get_current_time():
     df = pd.json_normalize(data['observationList'])
 
     #North air temperature
-    #North air temperature
     if "20777735-1" in df.values:
         rowNA = df.loc[df['sensor_sn'] == "20777735-1"]
         valueNA = rowNA.iloc[0]['us_value']

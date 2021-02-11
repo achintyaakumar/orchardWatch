@@ -112,6 +112,7 @@ const [ScLWA16, setScLWA16] = useState("Calculating..");
 const [ScLWY, setScLWY] = useState("Calculating..");
 const [ScLWA11, setScLWA11] = useState("Calculating..");
 
+//load every 5 seconds
 useEffect(() => {
   setInterval(() => {
   fetch('/api/temp').then(res => res.json()).then(data => {

@@ -249,11 +249,3 @@ nav li a.active {
   left: 15px;
   top: 6px;
 }
-
-.navigation {
-  float: right;
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  z-index: 1;
-}

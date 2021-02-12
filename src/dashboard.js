@@ -12,7 +12,7 @@ class Dashboard extends Component {
     render() {
         return (
             <div className="dashboard">
-                <form id="form1" method="post">
+                <form id="dashboardForm" method="post">
                     <br></br>
                     <label> Select a dashboard:  <select id="location" onChange={this.setIframeSource}> 
                         <option value="">Select a value ...</option> 

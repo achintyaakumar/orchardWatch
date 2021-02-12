@@ -1,5 +1,5 @@
 from datetime import datetime as dt, timedelta, timezone
-from flask import Flask
+from flask import Flask, request, make_response, Response
 from flask import render_template
 import urllib.request
 import json
@@ -727,9 +727,9 @@ def apple_scab():
     values = {
     "action": "",
     "authentication": {
-        "password": "HobOnset8!",
-        "token": "b69168e0d54c44e108922619d8ea1bac88d18ced",
-        "user": "procon"
+        "password": config.password,
+        "token": config.token,
+        "user": config.username
     },
     "query": {
         "end_date_time": curTime,
@@ -887,3 +887,64 @@ def apple_scab():
     
 
     return{'ScLWN': ScLWM, 'ScLWM': ScLWM, 'ScLWE': ScLWE, 'ScLWX': ScLWX, 'ScLWG': ScLWG, 'ScLWA16': ScLWA16, 'ScLWY': ScLWY, 'ScLWA11': ScLWA11, 'ScLWS': ScLWS}
+
+
+@app.route('/api/download', methods=['POST'])
+def download():
+    data = request.json
+    time=" 00:00:00.0000"
+    curTime = data["endingDate"]+time
+    prevTime = data["startingDate"]+time
+    curTime = dt.strptime(curTime, '%Y-%m-%d %H:%M:%S.%f')
+    curTime = curTime.strftime('%Y-%m-%d %H:%M:%S')
+    prevTime = dt.strptime(prevTime, '%Y-%m-%d %H:%M:%S.%f')
+    prevTime = prevTime.strftime('%Y-%m-%d %H:%M:%S')
+    
+    #Specify values
+
+    url = "https://webservice.hobolink.com/restv2/data/json"
+
+    values = {
+    "action": "",
+    "authentication": {
+        "password": config.password,
+        "token": config.token,
+        "user": config.username
+    },
+    "query": {
+        "end_date_time": curTime,
+        "loggers": [20777720,20699245,1],
+        "start_date_time": prevTime
+    }
+    }
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    }
+
+    #Get data
+    data = json.dumps(values).encode("utf-8")
+    #pprint(data)
+
+    try:
+        req = urllib.request.Request(url, data, headers)
+        with urllib.request.urlopen(req) as f:
+            res = f.read()
+        #pprint(res.decode())
+        print("Success")
+    except Exception as e:
+        pprint(e)
+    
+    data = json.loads(res.decode())
+    df = pd.json_normalize(data['observationList'])
+    print(df)
+    
+    # resp = make_response(df.to_csv())
+    # resp.headers["Content-Disposition"] = "attachment; filename=export.csv"
+    # resp.headers["Content-Type"] = "text/csv"
+    # return resp
+    return Response(
+       df.to_csv(),
+       mimetype="text/csv",
+       headers={"Content-disposition":
+       "attachment; filename=filename.csv"})

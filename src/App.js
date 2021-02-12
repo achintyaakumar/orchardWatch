@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import Dashboard from './dashboard';
 import Temp from './Temp';
+import Download from './Download'
 
 function App() {
   return (
@@ -11,11 +12,12 @@ function App() {
         <ul className="navigation">
           <li><Link to={'/'} className="nav-link"> Home </Link></li>
           <li><Link to={'/dashboard'} className="nav-link"> Dashboard </Link></li>
-          <li><Link to={'/'} className="nav-link"> Download </Link></li>
+          <li><Link to={'/download'} className="nav-link"> Download </Link></li>
         </ul>
         <Switch>
           <Route exact path='/' component={Temp}/>
           <Route exact path='/dashboard' component={Dashboard}/>
+          <Route exact path='/download' component={Download}/>
         </Switch>
       </div>
     </Router>

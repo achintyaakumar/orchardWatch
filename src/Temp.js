@@ -112,7 +112,9 @@ const [ScLWA16, setScLWA16] = useState("Calculating..");
 const [ScLWY, setScLWY] = useState("Calculating..");
 const [ScLWA11, setScLWA11] = useState("Calculating..");
 
-const getTemp = async() => {
+//load every 5 seconds
+useEffect(() => {
+  setInterval(() => {
   fetch('/api/temp').then(res => res.json()).then(data => {
     setCurrentTempNA(data.tempN);
     setCurrentTempSA(data.tempS);
@@ -215,18 +217,11 @@ const getTemp = async() => {
     setCurrentWDA11(data.WDA11);
     setCurrentTime(data.time);
   });
-}
+}, 5000)
+}, []);
 
-//load every 5 seconds
-useEffect(()=>{
-  getTemp()
-  const interval=setInterval(()=>{
-    getTemp()
-   },5000)  
-   return()=>clearInterval(interval)
-},[])
-
-const getScab = async () => {
+useEffect(() => {
+  setInterval(() => {
   fetch('/api/scab').then(res => res.json()).then(data => {
     setScLWN(data.ScLWN);
     setScLWM(data.ScLWM);
@@ -238,16 +233,10 @@ const getScab = async () => {
     setScLWY(data.ScLWY);
     setScLWA11(data.ScLWA11);
   });
-}
+}, 15000)
+}, []);
 
-useEffect(()=>{
-  getScab()
-  const interval=setInterval(()=>{
-    getScab()
-   },10000)  
-   return()=>clearInterval(interval)
-},[])
-
+console.log(ScLWN);
 return (
     <div className="App">
       <body className="App-body">

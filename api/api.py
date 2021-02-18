@@ -1,5 +1,6 @@
 from datetime import datetime as dt, timedelta, timezone
 from flask import Flask, request, make_response, Response
+from flask_cors import CORS
 import urllib.request
 import json
 import pandas as pd
@@ -10,6 +11,7 @@ import pytz
 #import matplotlib.pyplot as plt
 
 app = Flask(__name__, static_folder="../build", static_url_path="/")
+CORS(app)
 
 @app.route('/')
 def index():

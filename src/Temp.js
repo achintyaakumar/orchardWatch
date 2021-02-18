@@ -217,7 +217,7 @@ useEffect(() => {
   });
 }, []);
 
-//load every 5 seconds
+//load every 5 minutes
 useEffect(() => {
   setInterval(() => {
   fetch('/api/temp').then(res => res.json()).then(data => {
@@ -322,7 +322,7 @@ useEffect(() => {
     setCurrentWDA11(data.WDA11);
     setCurrentTime(data.time);
   });
-}, 30000)
+}, 300000)
 }, []);
 
 useEffect(() => {
@@ -339,6 +339,7 @@ useEffect(() => {
   });
 }, []);
 
+//every 15 mins
 useEffect(() => {
   setInterval(() => {
   fetch('/api/scab').then(res => res.json()).then(data => {
@@ -352,7 +353,7 @@ useEffect(() => {
     setScLWY(data.ScLWY);
     setScLWA11(data.ScLWA11);
   });
-}, 45000)
+}, 900000)
 }, []);
 
 return (

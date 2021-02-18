@@ -112,6 +112,111 @@ const [ScLWA16, setScLWA16] = useState("Calculating..");
 const [ScLWY, setScLWY] = useState("Calculating..");
 const [ScLWA11, setScLWA11] = useState("Calculating..");
 
+useEffect(() => {
+  fetch('/api/temp').then(res => res.json()).then(data => {
+    setCurrentTempNA(data.tempN);
+    setCurrentTempSA(data.tempS);
+    setCurrentRHN(data.RHN);
+    setCurrentRHS(data.RHS);
+    setCurrentTSN(data.TSN);
+    setCurrentTSS(data.TSS);
+    setCurrentLWN(data.LWN);
+    setCurrentLWS(data.LWS);
+    setCurrentDPN(data.DPN);
+    setCurrentDPS(data.DPS);
+    setCurrentRN(data.RN);
+    setCurrentRS(data.RS);
+    setCurrentSRN(data.SRN);
+    setCurrentSRS(data.SRS);
+    setCurrentWCSN(data.WCSN);
+    setCurrentWCSS(data.WCSS);
+    setCurrentATM(data.ATM);
+    setCurrentATE(data.ATE);
+    setCurrentATX(data.ATX);
+    setCurrentATG(data.ATG);
+    setCurrentATA16(data.ATA16);
+    setCurrentATY(data.ATY);
+    setCurrentATA11(data.ATA11);
+    setCurrentRHM(data.RHM);
+    setCurrentRHE(data.RHE);
+    setCurrentRHX(data.RHX);
+    setCurrentRHG(data.RHG);
+    setCurrentRHA16(data.RHA16);
+    setCurrentRHY(data.RHY);
+    setCurrentRHA11(data.RHA11);
+    setCurrentDPM(data.DPM);
+    setCurrentDPE(data.DPE);
+    setCurrentDPX(data.DPX);
+    setCurrentDPG(data.DPG);
+    setCurrentDPA16(data.DPA16);
+    setCurrentDPY(data.DPY);
+    setCurrentDPA11(data.DPA11);
+    setCurrentTSM(data.TSM);
+    setCurrentTSE(data.TSE);
+    setCurrentTSX(data.TSX);
+    setCurrentTSG(data.TSG);
+    setCurrentTSA16(data.TSA16);
+    setCurrentTSY(data.TSY);
+    setCurrentTSA11(data.TSA11);
+    setCurrentLWM(data.LWM);
+    setCurrentLWE(data.LWE);
+    setCurrentLWX(data.LWX);
+    setCurrentLWG(data.LWG);
+    setCurrentLWA16(data.LWA16);
+    setCurrentLWY(data.LWY);
+    setCurrentLWA11(data.LWA11);
+    setCurrentRM(data.RM);
+    setCurrentRE(data.RE);
+    setCurrentRX(data.RX);
+    setCurrentRG(data.RG);
+    setCurrentRA16(data.RA16);
+    setCurrentRY(data.RY);
+    setCurrentRA11(data.RA11);
+    setCurrentSRM(data.SRM);
+    setCurrentSRE(data.SRE);
+    setCurrentSRX(data.SRX);
+    setCurrentSRG(data.SRG);
+    setCurrentSRA16(data.SRA16);
+    setCurrentSRY(data.SRY);
+    setCurrentSRA11(data.SRA11);
+    setCurrentWCM(data.WCM);
+    setCurrentWCE(data.WCE);
+    setCurrentWCX(data.WCX);
+    setCurrentWCG(data.WCG);
+    setCurrentWCA16(data.WCA16);
+    setCurrentWCY(data.WCY);
+    setCurrentWCA11(data.WCA11);
+    setCurrentWSN(data.WSN);
+    setCurrentWSM(data.WSM);
+    setCurrentWSE(data.WSE);
+    setCurrentWSX(data.WSX);
+    setCurrentWSS(data.WSS);
+    setCurrentWSG(data.WSG);
+    setCurrentWSA16(data.WSA16);
+    setCurrentWSY(data.WSY);
+    setCurrentWSA11(data.WSA11);
+    setCurrentGSN(data.GSN);
+    setCurrentGSM(data.GSM);
+    setCurrentGSE(data.GSE);
+    setCurrentGSX(data.GSX);
+    setCurrentGSS(data.GSS);
+    setCurrentGSG(data.GSG);
+    setCurrentGSA16(data.GSA16);
+    setCurrentGSY(data.GSY);
+    setCurrentGSA11(data.GSA11);
+    setCurrentWDN(data.WDN);
+    setCurrentWDM(data.WDM);
+    setCurrentWDE(data.WDE);
+    setCurrentWDX(data.WDX);
+    setCurrentWDS(data.WDS);
+    setCurrentWDG(data.WDG);
+    setCurrentWDA16(data.WDA16);
+    setCurrentWDY(data.WDY);
+    setCurrentWDA11(data.WDA11);
+    setCurrentTime(data.time);
+  });
+}, []);
+
 //load every 5 seconds
 useEffect(() => {
   setInterval(() => {
@@ -217,7 +322,21 @@ useEffect(() => {
     setCurrentWDA11(data.WDA11);
     setCurrentTime(data.time);
   });
-}, 5000)
+}, 30000)
+}, []);
+
+useEffect(() => {
+  fetch('/api/scab').then(res => res.json()).then(data => {
+    setScLWN(data.ScLWN);
+    setScLWM(data.ScLWM);
+    setScLWE(data.ScLWE);
+    setScLWX(data.ScLWX);
+    setScLWS(data.ScLWS);
+    setScLWG(data.ScLWG);
+    setScLWA16(data.ScLWA16);
+    setScLWY(data.ScLWY);
+    setScLWA11(data.ScLWA11);
+  });
 }, []);
 
 useEffect(() => {
@@ -233,10 +352,9 @@ useEffect(() => {
     setScLWY(data.ScLWY);
     setScLWA11(data.ScLWA11);
   });
-}, 15000)
+}, 45000)
 }, []);
 
-console.log(ScLWN);
 return (
     <div className="App">
       <body className="App-body">

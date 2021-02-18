@@ -1,6 +1,5 @@
 from datetime import datetime as dt, timedelta, timezone
 from flask import Flask, request, make_response, Response
-from flask_cors import CORS
 import urllib.request
 import json
 import pandas as pd
@@ -11,7 +10,10 @@ import pytz
 #import matplotlib.pyplot as plt
 
 app = Flask(__name__, static_folder="../build", static_url_path="/")
-CORS(app)
+
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html')
 
 @app.route('/')
 def index():
@@ -20,6 +22,8 @@ def index():
 
 @app.route('/api/temp')
 def get_current_time():
+
+    print("Start temp")
 
     #Get most recent timestamp for Hobolink
     curTime = (dt.now(timezone.utc) - timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')
@@ -718,6 +722,8 @@ def get_current_time():
 
 @app.route('/api/scab')
 def apple_scab():
+
+    print("Start scab")
     curTime = (dt.now(timezone.utc) - timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')
     prevTime = (dt.now(timezone.utc) - timedelta(minutes=15) - timedelta(hours=41)).strftime('%Y-%m-%d %H:%M:%S') #Last 41 hours
 
@@ -896,10 +902,8 @@ def download():
     time=" 00:00:00.0000"
     curTime = data["endingDate"]+time
     prevTime = data["startingDate"]+time
-    curTime = dt.strptime(curTime, '%Y-%m-%d %H:%M:%S.%f')
-    curTime = curTime.strftime('%Y-%m-%d %H:%M:%S')
-    prevTime = dt.strptime(prevTime, '%Y-%m-%d %H:%M:%S.%f')
-    prevTime = prevTime.strftime('%Y-%m-%d %H:%M:%S')
+    curTime = dt.strptime(curTime, '%Y-%m-%d %H:%M:%S.%f').strftime('%Y-%m-%d %H:%M:%S')
+    prevTime = dt.strptime(prevTime, '%Y-%m-%d %H:%M:%S.%f').strftime('%Y-%m-%d %H:%M:%S')
     
     #Specify values
 

@@ -101,7 +101,7 @@ const [currentWDG, setCurrentWDG] = useState(0);
 const [currentWDA16, setCurrentWDA16] = useState(0);
 const [currentWDY, setCurrentWDY] = useState(0);
 const [currentWDA11, setCurrentWDA11] = useState(0);
-const [currentTime, setCurrentTime] = useState(0);
+const [currentTime, setCurrentTime] = useState("Loading..");
 const [ScLWN, setScLWN] = useState("Calculating..");
 const [ScLWM, setScLWM] = useState("Calculating..");
 const [ScLWE, setScLWE] = useState("Calculating..");
@@ -112,9 +112,7 @@ const [ScLWA16, setScLWA16] = useState("Calculating..");
 const [ScLWY, setScLWY] = useState("Calculating..");
 const [ScLWA11, setScLWA11] = useState("Calculating..");
 
-//load every 5 seconds
-useEffect(() => {
-  setInterval(() => {
+const getTemp = async() => {
   fetch('/api/temp').then(res => res.json()).then(data => {
     setCurrentTempNA(data.tempN);
     setCurrentTempSA(data.tempS);
@@ -217,11 +215,18 @@ useEffect(() => {
     setCurrentWDA11(data.WDA11);
     setCurrentTime(data.time);
   });
-}, 5000)
-}, []);
+}
 
-useEffect(() => {
-  setInterval(() => {
+//load every 5 seconds
+useEffect(()=>{
+  getTemp()
+  const interval=setInterval(()=>{
+    getTemp()
+   },5000)  
+   return()=>clearInterval(interval)
+},[])
+
+const getScab = async () => {
   fetch('/api/scab').then(res => res.json()).then(data => {
     setScLWN(data.ScLWN);
     setScLWM(data.ScLWM);
@@ -233,10 +238,16 @@ useEffect(() => {
     setScLWY(data.ScLWY);
     setScLWA11(data.ScLWA11);
   });
-}, 15000)
-}, []);
+}
 
-console.log(ScLWN);
+useEffect(()=>{
+  getScab()
+  const interval=setInterval(()=>{
+    getScab()
+   },10000)  
+   return()=>clearInterval(interval)
+},[])
+
 return (
     <div className="App">
       <body className="App-body">

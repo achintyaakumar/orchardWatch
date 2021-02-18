@@ -1,6 +1,5 @@
 from datetime import datetime as dt, timedelta, timezone
 from flask import Flask, request, make_response, Response
-from flask import render_template
 import urllib.request
 import json
 import pandas as pd
@@ -413,13 +412,13 @@ def get_current_time():
     else:
         valueSRM = 0     
 
-    if "20683600-1" in df.values:
+    if "20413294-1" in df.values:
         SRE = df.loc[df['sensor_sn'] == "20413294-1"]
         valueSRE = SRE.iloc[0]['us_value']
     else:
         valueSRE = 0     
 
-    if "20629502-1" in df.values:
+    if "20735859-1" in df.values:
         SRX = df.loc[df['sensor_sn'] == "20735859-1"]
         valueSRX = SRX.iloc[0]['us_value']
     else:
@@ -937,14 +936,14 @@ def download():
     
     data = json.loads(res.decode())
     df = pd.json_normalize(data['observationList'])
-    print(df)
+    # print(df)
     
     # resp = make_response(df.to_csv())
     # resp.headers["Content-Disposition"] = "attachment; filename=export.csv"
     # resp.headers["Content-Type"] = "text/csv"
     # return resp
-    return Response(
-       df.to_csv(),
-       mimetype="text/csv",
-       headers={"Content-disposition":
-       "attachment; filename=filename.csv"})
+    # return Response(
+    #    df.to_csv(),
+    #    mimetype="text/csv",
+    #    headers={"Content-disposition":
+    #    "attachment; filename=filename.csv"})

@@ -1,16 +1,18 @@
 import React, { Component } from "react";
+import { CSVLink } from "react-csv";
 
 class Download extends Component {
-  constructor() {
-    super();
-    this.state = {
+  csvLink = React.createRef();
+    state = {
         startingDate: new Date(),
         endingDate: new Date(),
-    };
-    this.onInputchange = this.onInputchange.bind(this);
-    this.onSubmitForm = this.onSubmitForm.bind(this);
-  }
-
+        startingTime: new Date(),
+        endingTime: new Date(),
+        sdata: []
+    }
+    onInputchange = this.onInputchange.bind(this);
+    onSubmitForm = this.onSubmitForm.bind(this);  
+  
   onInputchange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -29,8 +31,18 @@ class Download extends Component {
             },
             body: JSON.stringify({
                 startingDate: this.state.startingDate,
-                endingDate: this.state.endingDate
+                endingDate: this.state.endingDate,
+                startingTime: this.state.startingTime,
+                endingTime: this.state.endingTime
               })
+        }).then((response) => response.json())
+        .then(data => {
+          this.setState({ sdata: data }, () => {
+            // click the CSVLink component to trigger the CSV download
+            setTimeout(() => {
+              this.csvLink.current.link.click();
+           });
+          })
         })
     }
     else {
@@ -48,7 +60,7 @@ class Download extends Component {
             <input
               name="startingDate"
               type="date"
-              value={this.state.fname}
+              value={this.state.sdate}
               onChange={this.onInputchange}
             />
           </label>
@@ -57,23 +69,41 @@ class Download extends Component {
             <input
               name="endingDate"
               type="date"
-              value={this.state.lname}
+              value={this.state.edate}
               onChange={this.onInputchange}
             />
           </label>
-            <button onClick={this.onSubmitForm}>Submit</button>
+          <br></br>
+          <label>
+            Starting time: 
+            <input
+              name="startingTime"
+              type="time"
+              value={this.state.stime}
+              onChange={this.onInputchange}
+            />
+          </label>
+          <label>
+            Ending time: 
+            <input
+              name="endingTime"
+              type="time"
+              value={this.state.etime}
+              onChange={this.onInputchange}
+            />
+          </label>
+          <br></br>
+          <button onClick={this.onSubmitForm}>Submit</button>
+            <CSVLink
+              data={this.state.sdata}
+              filename="data.csv"
+              className="hidden"
+              ref={this.csvLink}
+              target="_blank" 
+            />
       </div>
     );
   }
 }
 
 export default Download
-
-
-
-
-            // <form id="downloadForm" method="post">
-            //     <input type="time" name="time" value="22:00" />
-            //     <br></br>
-            //     <input type="date" id="date" name="date"></input>
-            // </form>

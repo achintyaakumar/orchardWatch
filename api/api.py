@@ -899,9 +899,10 @@ def apple_scab():
 @app.route('/api/download', methods=['POST'])
 def download():
     data = request.json
-    time=" 00:00:00.0000"
-    curTime = data["endingDate"]+time
-    prevTime = data["startingDate"]+time
+    time=":00.0000"
+    curTime = data["endingDate"]+" "+data["endingTime"]+time
+    prevTime = data["startingDate"]+" "+data["startingTime"]+time
+    print(curTime)
     curTime = dt.strptime(curTime, '%Y-%m-%d %H:%M:%S.%f').strftime('%Y-%m-%d %H:%M:%S')
     prevTime = dt.strptime(prevTime, '%Y-%m-%d %H:%M:%S.%f').strftime('%Y-%m-%d %H:%M:%S')
     
@@ -941,7 +942,10 @@ def download():
         pprint(e)
     
     data = json.loads(res.decode())
-    df = pd.json_normalize(data['observationList'])
+    retData = json.dumps(data['observationList'])
+    print(type(retData))
+    return retData
+
     # print(df)
     
     # resp = make_response(df.to_csv())

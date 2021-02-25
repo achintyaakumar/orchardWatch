@@ -93,6 +93,7 @@ class Download extends Component {
             />
           </label>
           <br></br>
+          
           <button onClick={this.onSubmitForm}>Submit</button>
             <CSVLink
               data={this.state.sdata}

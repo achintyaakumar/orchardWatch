@@ -500,19 +500,19 @@ def get_current_time():
         valueWCG = 0     
 
     if "20543770-1" in df.values:
-        WCA16 = df.loc[df['sensor_sn'] == "20543770-1"]
+        WCA16 = df.loc[df['sensor_sn'] == "20543770-1"] #confirm wca values, switch a11 and a16?
         valueWCA16 = WCA16.iloc[0]['us_value']
     else:
         valueWCA16 = 0      
 
-    if "20683615-1" in df.values:
-        WCY = df.loc[df['sensor_sn'] == "20683615-1"]
+    if "20683609-1" in df.values:
+        WCY = df.loc[df['sensor_sn'] == "20683609-1"]
         valueWCY = WCY.iloc[0]['us_value']
     else:
         valueWCY = 0     
 
-    if "20683609-1" in df.values:
-        WCA11 = df.loc[df['sensor_sn'] == "20683609-1"]
+    if "20683615-1" in df.values:
+        WCA11 = df.loc[df['sensor_sn'] == "20683615-1"]
         valueWCA11 = WCA11.iloc[0]['us_value'] 
     else:
         valueWCA11 = 0 

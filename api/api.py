@@ -1,5 +1,5 @@
 from datetime import datetime as dt, timedelta, timezone
-from flask import Flask, request, make_response, Response
+from flask import Flask, request, Response
 import urllib.request
 import json
 import pandas as pd
@@ -10,6 +10,18 @@ import pytz
 #import matplotlib.pyplot as plt
 
 app = Flask(__name__, static_folder="../build", static_url_path="/")
+
+#              N             M            E             X             S             G             A16           Y             A11        B3b
+sensors = {
+    "1": ["20777735-1", "20683649-1", "20677838-1", "20683651-1", "20692768-1", "20677839-1", "20677837-1", "20683650-1", "20677836-1"], #Air temperature
+    "2": ["20777735-2", "20683649-2", "20677838-2", "20683651-2", "20692768-2", "20677839-2", "20677837-2", "20683650-2", "20677836-2"], # Rel humidity
+    "3": ["20777735-3", "20683649-3", "20677838-3", "20683651-3", "20692768-3", "20677839-3", "20677837-3", "20683650-3", "20677836-3"], # Dew point
+    "4": ["20775973-1", "20683599-1", "20683600-1", "20629502-1", "20696900-1", "20810982-1", "20683603-1", "20683602-1", "20683601-1"], # Rainfall
+    "5": ["20774075-1", "20776878-1", "20778340-1", "20780842-1", "20650716-1", "20778341-1", "20776877-1", "20778339-1", "20778342-1", "20780849-1"], # Leaf wetness
+    "6": ["20779661-1", "20864948-1", "20413294-1", "20735859-1", "20683743-1", "20413291-1", "20413293-1", "20454637-1", "20413295-1"], # Solar radiation
+    "7": ["20770089-1", "20683693-1", "20683722-1", "20683695-1", "20684342-1", "20683697-1", "20683696-1", "20683694-1", "20683723-1"], # Soil temp
+    "8": ["20773509-1", "20683612-1", "20683614-1", "20683610-1", "20696181-1", "20683611-1", "20543770-1", "20683615-1", "20683609-1"]  # Water content
+}
 
 @app.errorhandler(404)
 def not_found(e):
@@ -899,10 +911,11 @@ def apple_scab():
 @app.route('/api/download', methods=['POST'])
 def download():
     data = request.json
+    options = data["values"]
+    print(options)
     time=":00.0000"
     curTime = data["endingDate"]+" "+data["endingTime"]+time
     prevTime = data["startingDate"]+" "+data["startingTime"]+time
-    print(curTime)
     curTime = dt.strptime(curTime, '%Y-%m-%d %H:%M:%S.%f').strftime('%Y-%m-%d %H:%M:%S')
     prevTime = dt.strptime(prevTime, '%Y-%m-%d %H:%M:%S.%f').strftime('%Y-%m-%d %H:%M:%S')
     
@@ -942,18 +955,16 @@ def download():
         pprint(e)
     
     data = json.loads(res.decode())
-    retData = json.dumps(data['observationList'])
-    print(type(retData))
-    return retData
+    # retData = json.dumps(data['observationList'])
+    df = pd.json_normalize(data['observationList'])
 
+    rows = []
+    for i in options:
+        if i['value'] in sensors:
+            rows = rows + sensors[i['value']] # create a list of all sensor values
+    x = df.loc[df['sensor_sn'].isin(rows)]
+
+    retData = x.to_json(orient="records")
+    print(type(retData))
     # print(df)
-    
-    # resp = make_response(df.to_csv())
-    # resp.headers["Content-Disposition"] = "attachment; filename=export.csv"
-    # resp.headers["Content-Type"] = "text/csv"
-    # return resp
-    # return Response(
-    #    df.to_csv(),
-    #    mimetype="text/csv",
-    #    headers={"Content-disposition":
-    #    "attachment; filename=filename.csv"})
+    return retData

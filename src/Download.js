@@ -1,5 +1,17 @@
 import React, { Component } from "react";
 import { CSVLink } from "react-csv";
+import Select from 'react-select'
+
+const options = [
+  { value: '1', label: 'Air temperature' },
+  { value: '2', label: 'Relative humidity' },
+  { value: '3', label: 'Dew point' },
+  { value: '4', label: 'Rainfall' },
+  { value: '5', label: 'Leaf wetness' },
+  { value: '6', label: 'Solar radiation' },
+  { value: '7', label: 'Soil temperature' },
+  { value: '8', label: 'Water content' },
+]
 
 class Download extends Component {
   csvLink = React.createRef();
@@ -8,20 +20,38 @@ class Download extends Component {
         endingDate: new Date(),
         startingTime: new Date(),
         endingTime: new Date(),
+        checked: false,
+        values: [],
         sdata: []
     }
     onInputchange = this.onInputchange.bind(this);
     onSubmitForm = this.onSubmitForm.bind(this);  
+    // onChange = this.onChange.bind(this);
+    // onChangeCheckbox = this.onChangeCheckbox.bind(this);
   
   onInputchange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
+  onChangeCheckbox = e => {
+    const isChecked = !this.state.checked;
+    this.setState({
+      checked: isChecked,
+      values: isChecked ? options : this.state.values
+    });
+  };
+  onChange = opt => {
+    const allOptionsSelected = opt.length === options.length;
+    this.setState({
+      checked: allOptionsSelected ? true : false,
+      values: opt
+    });
+  };
 
   onSubmitForm() {
     console.log(this.state)
-    if(this.state.endingDate > this.state.startingDate) {
+    if(this.state.endingDate >= this.state.startingDate) {
         alert("Request sent!")
         fetch("/api/download", {
             method:"POST",
@@ -33,7 +63,8 @@ class Download extends Component {
                 startingDate: this.state.startingDate,
                 endingDate: this.state.endingDate,
                 startingTime: this.state.startingTime,
-                endingTime: this.state.endingTime
+                endingTime: this.state.endingTime,
+                values: this.state.values
               })
         }).then((response) => response.json())
         .then(data => {
@@ -54,7 +85,7 @@ class Download extends Component {
   render() {
     
     return (
-      <div>
+      <div className="download">
           <label>
             Starting date: 
             <input
@@ -92,6 +123,27 @@ class Download extends Component {
               onChange={this.onInputchange}
             />
           </label>
+          <br></br>
+          <br></br>
+          <p>Select the sensors:</p>
+          <br></br>
+          <Select
+          isMulti
+          onChange={this.onChange}
+          options={options}
+          value={this.state.values}
+           />
+
+          <p>
+            <input
+              onChange={this.onChangeCheckbox}
+              type="checkbox"
+              id="selectAll"
+              value="selectAll"
+              checked={this.state.checked}
+            />
+            <label for="selectAll">Select all</label>
+          </p>
           <br></br>
           
           <button onClick={this.onSubmitForm}>Submit</button>

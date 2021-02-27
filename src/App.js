@@ -11,7 +11,8 @@ function App() {
       <div className="App">
         <ul className="navigation">
           <li><Link to={'/'} className="nav-link"> Home </Link></li>
-          <li><Link to={'/dashboard'} className="nav-link"> Dashboard </Link></li>
+          <li><Link to={'/'} className="nav-link"> About </Link></li>
+          <li><Link to={'/dashboard'} className="nav-link"> Dashboards </Link></li>
           <li><Link to={'/download'} className="nav-link"> Download </Link></li>
         </ul>
         <Switch>

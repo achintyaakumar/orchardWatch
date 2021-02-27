@@ -360,6 +360,7 @@ return (
     <div className="App">
       <body className="App-body">
         <p>Last update: {currentTime}</p>
+        <br></br>
         <table>
           <tbody>
           <tr>

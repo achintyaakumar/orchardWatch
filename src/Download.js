@@ -50,9 +50,25 @@ class Download extends Component {
   };
 
   onSubmitForm() {
-    console.log(this.state)
-    if(this.state.endingDate >= this.state.startingDate) {
-        alert("Request sent!")
+    var d1 = this.state.startingDate + "-" + this.state.startingTime;
+    var d2 = this.state.endingDate + "-" + this.state.endingTime;
+    console.log(d1<d2);
+    var errorBox = document.getElementById("error") 
+    if(d1 > d2) {
+      errorBox.innerHTML = "<span style='color: red;'>"+ 
+                        "Please make sure the starting timestamp is before the ending timestamp.</span>" 
+    }
+    else if(!this.state.endingTime || !this.state.startingTime) {
+      errorBox.innerHTML = "<span style='color: red;'>"+ 
+                        "Please select a starting and ending time.</span>" 
+    }
+    else if(this.state.values.length === 0) {
+      errorBox.innerHTML = "<span style='color: red;'>"+ 
+                        "Please select the sensors you want values from.</span>" 
+    }
+    else {
+        errorBox.innerHTML = "<span style='color: green;'>"+ 
+                        "Request sent! Your file will be downloaded soon.</span>" 
         fetch("/api/download", {
             method:"POST",
             cache: "no-cache",
@@ -76,11 +92,8 @@ class Download extends Component {
           })
         })
     }
-    else {
-        alert("Ending date should be after the starting date.")
-    }
       
-    }
+  }
 
   render() {
     
@@ -154,6 +167,8 @@ class Download extends Component {
               ref={this.csvLink}
               target="_blank" 
             />
+          <br></br>
+          <span id="error"></span>
       </div>
     );
   }

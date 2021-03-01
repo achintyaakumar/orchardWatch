@@ -1,5 +1,5 @@
 from datetime import datetime as dt, timedelta, timezone
-from flask import Flask, request, Response
+from flask import Flask, request, Response, jsonify
 import urllib.request
 import json
 import pandas as pd
@@ -951,20 +951,22 @@ def download():
             res = f.read()
         #pprint(res.decode())
         print("Success")
+
+        data = json.loads(res.decode())
+        # retData = json.dumps(data['observationList'])
+        df = pd.json_normalize(data['observationList'])
+
+        rows = []
+        for i in options:
+            if i['value'] in sensors:
+                rows = rows + sensors[i['value']] # create a list of all sensor values
+        x = df.loc[df['sensor_sn'].isin(rows)]
+
+        retData = x.to_json(orient="records")
+        print(type(retData))
+        # print(df)
+        return retData
     except Exception as e:
         pprint(e)
     
-    data = json.loads(res.decode())
-    # retData = json.dumps(data['observationList'])
-    df = pd.json_normalize(data['observationList'])
-
-    rows = []
-    for i in options:
-        if i['value'] in sensors:
-            rows = rows + sensors[i['value']] # create a list of all sensor values
-    x = df.loc[df['sensor_sn'].isin(rows)]
-
-    retData = x.to_json(orient="records")
-    print(type(retData))
-    # print(df)
-    return retData
+    return 500

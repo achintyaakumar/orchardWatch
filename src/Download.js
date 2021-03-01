@@ -16,10 +16,10 @@ const options = [
 class Download extends Component {
   csvLink = React.createRef();
     state = {
-        startingDate: new Date(),
-        endingDate: new Date(),
-        startingTime: new Date(),
-        endingTime: new Date(),
+        startingDate: "",
+        endingDate: "",
+        startingTime: "",
+        endingTime: "",
         checked: false,
         values: [],
         sdata: []
@@ -53,14 +53,18 @@ class Download extends Component {
     var d1 = this.state.startingDate + "-" + this.state.startingTime;
     var d2 = this.state.endingDate + "-" + this.state.endingTime;
     console.log(d1<d2);
-    var errorBox = document.getElementById("error") 
-    if(d1 > d2) {
+    var errorBox = document.getElementById("error"); 
+    if(!this.state.endingDate || !this.state.startingDate) {
       errorBox.innerHTML = "<span style='color: red;'>"+ 
-                        "Please make sure the starting timestamp is before the ending timestamp.</span>" 
+                        "Please select a starting and ending date.</span>" 
     }
     else if(!this.state.endingTime || !this.state.startingTime) {
       errorBox.innerHTML = "<span style='color: red;'>"+ 
                         "Please select a starting and ending time.</span>" 
+    }
+    else if(d1 > d2) {
+      errorBox.innerHTML = "<span style='color: red;'>"+ 
+                        "Please make sure the starting timestamp is before the ending timestamp.</span>" 
     }
     else if(this.state.values.length === 0) {
       errorBox.innerHTML = "<span style='color: red;'>"+ 
@@ -83,13 +87,16 @@ class Download extends Component {
                 values: this.state.values
               })
         }).then((response) => response.json())
-        .then(data => {
+        .then(data => { 
           this.setState({ sdata: data }, () => {
             // click the CSVLink component to trigger the CSV download
             setTimeout(() => {
               this.csvLink.current.link.click();
            });
           })
+        }).catch(err => {
+          errorBox.innerHTML = "<span style='color: red;'>"+ 
+                        "Could not connect to the weather station, please try again in 5 minutes.</span>"
         })
     }
       

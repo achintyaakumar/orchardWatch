@@ -1,15 +1,16 @@
 from datetime import datetime as dt, timedelta, timezone
-from flask import Flask, request, Response, jsonify
+from flask import Flask, request, Response
+#from config import Config
 import urllib.request
 import json
 import pandas as pd
 import numpy as np
 from pprint import pprint
-import config
 import pytz
-#import matplotlib.pyplot as plt
+import config
 
 app = Flask(__name__, static_folder="../build", static_url_path="/")
+#app.config.from_object(Config)
 
 #              N             M            E             X             S             G             A16           Y             A11        B3b
 sensors = {
@@ -50,6 +51,9 @@ def get_current_time():
     values = {
     "action": "",
     "authentication": {
+        # "password": app.config['PASSWORD'],
+        # "token": app.config['TOKEN'],
+        # "user": app.config['USERNAME']
         "password": config.password,
         "token": config.token,
         "user": config.username
@@ -913,11 +917,8 @@ def download():
     data = request.json
     options = data["values"]
     print(options)
-    time=":00.0000"
-    curTime = data["endingDate"]+" "+data["endingTime"]+time
-    prevTime = data["startingDate"]+" "+data["startingTime"]+time
-    curTime = dt.strptime(curTime, '%Y-%m-%d %H:%M:%S.%f').strftime('%Y-%m-%d %H:%M:%S')
-    prevTime = dt.strptime(prevTime, '%Y-%m-%d %H:%M:%S.%f').strftime('%Y-%m-%d %H:%M:%S')
+    curTime = dt.strptime(data["endingDate"]+" "+data["endingTime"]+":00.0000", '%Y-%m-%d %H:%M:%S.%f').astimezone(pytz.utc).strftime("%Y-%m-%d %H:%M:%S")
+    prevTime = dt.strptime(data["startingDate"]+" "+data["startingTime"]+":00.0000", '%Y-%m-%d %H:%M:%S.%f').astimezone(pytz.utc).strftime("%Y-%m-%d %H:%M:%S")
     
     #Specify values
 

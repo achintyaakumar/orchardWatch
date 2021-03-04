@@ -8,6 +8,7 @@ import numpy as np
 from pprint import pprint
 import pytz
 import config
+import sys
 
 app = Flask(__name__, static_folder="../build", static_url_path="/")
 #app.config.from_object(Config)
@@ -49,20 +50,20 @@ def get_current_time():
     url = "https://webservice.hobolink.com/restv2/data/json"
 
     values = {
-    "action": "",
-    "authentication": {
-        # "password": app.config['PASSWORD'],
-        # "token": app.config['TOKEN'],
-        # "user": app.config['USERNAME']
-        "password": config.password,
-        "token": config.token,
-        "user": config.username
-    },
-    "query": {
-        "end_date_time": curTime,
-        "loggers": [20777720,20699245,1],
-        "start_date_time": prevTime
-    }
+        "action": "",
+        "authentication": {
+            # "password": app.config['PASSWORD'],
+            # "token": app.config['TOKEN'],
+            # "user": app.config['USERNAME']
+            "password": config.password,
+            "token": config.token,
+            "user": config.username
+        },
+        "query": {
+            "end_date_time": curTime,
+            "loggers": [20777720,20699245,1],
+            "start_date_time": prevTime
+        }
     }
 
     headers = {
@@ -78,7 +79,8 @@ def get_current_time():
         with urllib.request.urlopen(req) as f:
             res = f.read()
     except Exception as e:
-        pprint(e)
+        print(e)
+        sys.stdout.flush()
 
     #Convert response to a pandas dataframe
     data = json.loads(res.decode())

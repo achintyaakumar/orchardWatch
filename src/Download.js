@@ -66,6 +66,10 @@ class Download extends Component {
       errorBox.innerHTML = "<span style='color: red;'>"+ 
                         "Please make sure the starting timestamp is before the ending timestamp.</span>" 
     }
+    else if(d1 > new Date().toISOString()) {
+      errorBox.innerHTML = "<span style='color: red;'>"+ 
+      "Please make sure the start date is not a future value.</span>" 
+    }
     else if(this.state.values.length === 0) {
       errorBox.innerHTML = "<span style='color: red;'>"+ 
                         "Please select the sensors you want values from.</span>" 

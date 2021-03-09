@@ -52,16 +52,6 @@ th {
   font-size: large;
 }
 
-.download {
-  margin-top: 120px;
-  text-align: center;
-  box-shadow:4px 4px 10px rgba(0,0,0,0.30);
-  border-radius: 5px;
-  background-color: rgba(228, 240, 247, 0.7);
-  font-size: large;
-  padding: 20px;
-}
-
 .dashboardDropdown {
   margin-top: 50px;
   text-align: center;
@@ -70,6 +60,16 @@ th {
   background-color: rgba(235, 241, 245, 0.8);
   font-size: large;
   padding: 10px;
+}
+
+.download {
+  margin-top: 120px;
+  text-align: center;
+  box-shadow:4px 4px 10px rgba(0,0,0,0.30);
+  border-radius: 5px;
+  background-color: rgba(228, 240, 247, 0.7);
+  font-size: large;
+  padding: 20px;
 }
 
 #location {
@@ -206,4 +206,9 @@ p {
 .arrow:hover {
   border-bottom-width: 4px;
   border-right-width: 4px;
+}
+
+.NoMatchPage {
+  padding-top: 140%;
+  color: red;
 }

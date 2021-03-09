@@ -5,6 +5,7 @@ import Dashboard from './Dashboard';
 import Temp from './Temp';
 import Download from './Download'
 import About from './About'
+import NoMatchPage from './404'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/about' component={About}/>
           <Route path='/dashboard' component={Dashboard}/>
           <Route path='/download' component={Download}/>
+          <Route component={NoMatchPage} />
         </Switch>
       </div>
     </Router>

@@ -30,7 +30,7 @@ class Dashboard extends Component {
         
                 <br></br> <br></br>
 
-                <iframe title="frame" id="myIframe" src="" frameBorder="0" marginWidth="0" marginHeight="0" width="840" height="900"></iframe>
+                <iframe title="frame" id="myIframe" src="" frameBorder="0" marginWidth="0" marginHeight="0" ></iframe>
 
                 {/* <iframe title="1" id="1" width="840px" height="900px" src="https://dashboard.hobolink.com/public/7968/Relative%20humidity%20RH-07-24-2020%2014:24:15" ></iframe> */}
             </div>

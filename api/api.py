@@ -11,7 +11,6 @@ import config
 import sys
 
 app = Flask(__name__, static_folder="../build", static_url_path="/")
-#app.config.from_object(Config)
 
 #              N             M            E             X             S             G             A16           Y             A11        B3b
 sensors = {

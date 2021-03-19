@@ -102,15 +102,15 @@ const [currentWDA16, setCurrentWDA16] = useState(0);
 const [currentWDY, setCurrentWDY] = useState(0);
 const [currentWDA11, setCurrentWDA11] = useState(0);
 const [currentTime, setCurrentTime] = useState("Loading..");
-const [ScLWN, setScLWN] = useState("Calculating..");
-const [ScLWM, setScLWM] = useState("Calculating..");
-const [ScLWE, setScLWE] = useState("Calculating..");
-const [ScLWX, setScLWX] = useState("Calculating..");
-const [ScLWS, setScLWS] = useState("Calculating..");
-const [ScLWG, setScLWG] = useState("Calculating..");
-const [ScLWA16, setScLWA16] = useState("Calculating..");
-const [ScLWY, setScLWY] = useState("Calculating..");
-const [ScLWA11, setScLWA11] = useState("Calculating..");
+const [ScLWN, setScLWN] = useState("Computing..");
+const [ScLWM, setScLWM] = useState("Computing..");
+const [ScLWE, setScLWE] = useState("Computing..");
+const [ScLWX, setScLWX] = useState("Computing..");
+const [ScLWS, setScLWS] = useState("Computing..");
+const [ScLWG, setScLWG] = useState("Computing..");
+const [ScLWA16, setScLWA16] = useState("Computing..");
+const [ScLWY, setScLWY] = useState("Computing..");
+const [ScLWA11, setScLWA11] = useState("Computing..");
 
 useEffect(() => {
   fetch('/api/temp').then(res => res.json()).then(data => {

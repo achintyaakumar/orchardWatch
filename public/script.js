@@ -97,7 +97,7 @@ var weatherMap = {
   6: { type: 'mix-rain-sleet', class: 'cold', intensity: 1, icon: 'wi-sleet', name: 'Mixed Rain and Sleet' }, //mixed rain and sleet
   7: { type: 'mix-snow-sleet', class: 'cold', intensity: 1, icon: 'wi-sleet', name: 'Mixed Snow and Sleet' }, //mixed snow and sleet
   8: { type: 'rain', class: 'cold', intensity: .5, icon: 'wi-rain-mix', name: 'Freezing Drizzle' }, //freezing drizzle
-  9: { type: 'rain', class: '', intensity: .5, icon: 'wi-sprinkle', name: 'Drizzle' }, //drizzle
+  9: { type: 'rain', class: '', intensity: .7, icon: 'wi-sprinkle', name: 'Drizzle' }, //drizzle
   10: { type: 'rain', class: 'cold', intensity: 1, icon: 'wi-rain-mix', name: 'Freezing Rain' }, //freezing rain
   11: { type: 'rain', class: '', intensity: 1, icon: 'wi-rain', name: 'Showers' }, //showers
   12: { type: 'rain', class: '', intensity: 1, icon: 'wi-rain', name: 'Showers' }, //showers
@@ -129,7 +129,7 @@ var weatherMap = {
   38: { type: 'thunder', class: 'night', intensity: 1, icon: 'wi-storm-showers', name: 'Thunderstorm' }, //thunderstorm (night)
   39: { type: 'rain', class: 'night', intensity: 1, icon: 'wi-storm-showers', name: 'Rain' }, //Rain (night)
   40: { type: 'rain', class: '', intensity: .75, icon: 'wi-showers', name: 'Scattered Showers' }, //scattered showers
-  41: { type: 'rain', class: 'night', intensity: 0.5, icon: 'wi-sprinkle', name: 'Drizzle' }, //Drizzle (night)
+  41: { type: 'rain', class: 'night', intensity: 0.7, icon: 'wi-sprinkle', name: 'Drizzle' }, //Drizzle (night)
   42: { type: 'snow', class: 'night', intensity: 1, icon: 'wi-snow', name: 'Snow' }, //snow (night)
   43: { type: 'snow', class: 'cold', intensity: 1.75, icon: 'wi-snow', name: 'Heavy Snow' }, //heavy snow
   44: { type: 'cloud', class: '', intensity: .1, icon: 'wi-day-cloudy', name: 'Partly Cloudy' }, //partly cloudy

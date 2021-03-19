@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 class About extends Component {
     scroll() {
-        console.log("Hi");
         document.querySelector(".bottomContainer").scrollIntoView({ behavior: 'smooth' });
     }
     render(){
@@ -28,10 +27,11 @@ class About extends Component {
                     <h1>Our History</h1>
                     <p>In order to figure it out, we’ve installed a total of nine “weather stations” over the past eight months (September 2019 through April 2020) using Onset Computer Corporation hardware and their Hobolink software to monitor “weather” conditions across 50 acres of the UMass Orchard. (Special thanks to Jim Krupa, Research Technician, for assistance with all the installations.) We are calling this our “Weather Monitoring Grid”, a major component of a larger project, OrchardWatch. (OrchardWatch involves significant web-based communication and data collection which can be shared between researchers, growers and the public.) The Weather Monitoring Grid consists of two Onset RX3000 logging base stations dubbed “OrchardWatch-North” and “OrchardWatch-South”, plus seven Onset Hobonet Field Monitoring System “motes.” The nine sensor locations vary in terms of elevation, surrounding terrain and the type of trees, and other crops, being grown. For example, one mote is at the highest point in the orchard surrounded by newly planted trees, and another is at one of the lowest areas with mature trees surrounded on three sides by woods. </p>
                     <p>Weather data are logged every five minutes and reported to the Hobolink cloud service every 10 minutes via cellular data transmission. Future plans include installing cameras at each location to capture real time orchard phenology and sky conditions. Cameras might even be able to see pest activity as if one were actually scouting in the orchard. We will investigate machine learning and statistical analysis tools to help develop and improve upon various models such as disease, pest pressure, tree growth and health, etc. </p>
+                    <p>For more information <a href="https://orchardwatch.wordpress.com/" target="_blank" rel="noreferrer">click here.</a> </p>
+                    <br></br>
                 </div>
             </div>
-          );
-          
+          );      
     }
     
 }

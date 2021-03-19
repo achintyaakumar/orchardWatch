@@ -18,8 +18,18 @@ table, th, td {
 }
 
 th, td {
-  padding: 14px;
+  padding: 14px; 
   text-align: left;
+}
+
+@media screen and (max-width: 648px) {
+  th, td {
+    padding-left: 6px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 0px;
+    text-align: left;
+  }
 }
 
 /* tr:nth-child(even) {
@@ -62,6 +72,20 @@ th {
   padding: 10px;
 }
 
+@media (max-width: 648px) {
+  iframe {
+    width: 500px;
+    height: 800px;
+  }
+}
+
+@media (max-width: 870px) {
+  iframe {
+    width: 650px;
+    height: 800px;
+  }
+}
+
 .download {
   margin-top: 120px;
   text-align: center;
@@ -83,12 +107,76 @@ iframe {
   top: 50px;
 }
 
-.navigation {
+.logo-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#navigation {
   float: right;
   position: absolute;
   top: 18px;
   right: 20px;
   z-index: 1;
+}
+
+.mobile-option {
+  display: none;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: 648px) {
+
+  #navigation {
+    top: 0px;
+  }
+  .nav-options {
+    float: right;
+    display: flex;
+    width: 45%;
+    height: 450px;
+    position: absolute;
+    left: -100%;
+    opacity: 0;
+    transition: all 0.5s ease;
+    flex-direction: column;
+    list-style-type: none;
+    grid-gap: 0px;
+  }
+  .nav-options.active {
+    font-weight: 600;
+    background: #9899d1;
+    top: 0px;
+    left: 0;
+    opacity: 0.9;
+    transition: all 0.5s ease;
+    z-index: 1;
+    align-content: center;
+    padding-left: 0px;
+  }
+  .menu-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vw;
+    padding: 30px 0px;
+  }
+  .mobile-menu {
+    color:rgb(61, 59, 59);
+    float: right;
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+  }
 }
 
 ul {
@@ -142,11 +230,11 @@ p {
 }
 
 .aboutContainer {
-  width: 191.9vh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 75vh;
+  height: 100%;
   margin: 0 auto;
   background: #3A1C71;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #FFAF7B, #D76D77, #3A1C71);  /* Chrome 10-25, Safari 5.1-6 */
@@ -190,6 +278,25 @@ p {
   line-height: 200%;
   padding-left: 150px;
   padding-right: 150px;
+}
+
+@media screen and (max-width: 648px) {
+  .aboutHeader {
+    padding: 30px;
+  }
+
+  .aboutHeader h1 {
+    font-size: 50px;
+  }
+
+  .aboutHeader h3 {
+    font-size: 20px;
+  }
+
+  .bottomContainer p {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
 
 .arrow {

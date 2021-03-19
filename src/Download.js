@@ -64,7 +64,7 @@ class Download extends Component {
     }
     else if(d1 > d2) {
       errorBox.innerHTML = "<span style='color: red;'>"+ 
-                        "Please make sure the starting timestamp is before the ending timestamp.</span>" 
+                        "Please make sure the starting datetime is before the ending datetime.</span>" 
     }
     else if(d1 > new Date().toISOString()) {
       errorBox.innerHTML = "<span style='color: red;'>"+ 

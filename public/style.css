@@ -43,6 +43,12 @@ body {
   opacity: 0 !important;
 }
 
+@media screen and (max-width: 648px) {
+  .container {
+    height: 140%;
+  }
+}
+
 .card-container {
   display: flex;
   flex-direction: row;

@@ -72,12 +72,13 @@ def getscab():
         print("Starting scab calc at %d"%(t1-abstime))
         #North
         if "20775973-1" in df.values and "20774075-1" in df.values and  df.loc[df['sensor_sn'] == "20775973-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            AvgT = df.loc[df['sensor_sn'] == "20777735-1"]['us_value'].mean() #get avg of temp value /////CHANGE
-            Count = sum(df.loc[df['sensor_sn'] == "20774075-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
-            if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
-            (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
-            (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
-            (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            Count = sum(df.loc[df['sensor_sn'] == "20774075-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Hours = Count/12
+            AvgT = df.loc[df['sensor_sn'] == "20777735-1"]['us_value'].tail(Count).mean() #get avg of temp value 
+            if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
+            (AvgT >= 54 and Hours >= 8) or (AvgT >= 52 and Hours >= 9) or (AvgT >= 50 and Hours >= 11) or (AvgT >= 48 and Hours >= 12) or
+            (AvgT >= 46 and Hours >= 13) or (AvgT >= 45 and Hours >= 15) or (AvgT >= 43 and Hours >= 18) or (AvgT >= 41 and Hours >= 21) or
+            (AvgT >= 39 and Hours >= 28) or (AvgT >= 37 and Hours >= 30) or (AvgT >= 36 and Hours >= 35) or (AvgT >= 34 and Hours >= 41)):
                 ScLWN = "Yes"
             else:
                 ScLWN = "No"   
@@ -87,12 +88,13 @@ def getscab():
 
         #M
         if "20683599-1" in df.values and "20776878-1" in df.values and  df.loc[df['sensor_sn'] == "20683599-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            AvgT = df.loc[df['sensor_sn'] == "20683649-1"]['us_value'].mean() #get avg of temp value
-            Count = sum(df.loc[df['sensor_sn'] == "20776878-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
-            if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
-            (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
-            (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
-            (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            Count = sum(df.loc[df['sensor_sn'] == "20776878-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Hours = Count/12
+            AvgT = df.loc[df['sensor_sn'] == "20683649-1"]['us_value'].tail(Count).mean() #get avg of temp value
+            if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
+            (AvgT >= 54 and Hours >= 8) or (AvgT >= 52 and Hours >= 9) or (AvgT >= 50 and Hours >= 11) or (AvgT >= 48 and Hours >= 12) or
+            (AvgT >= 46 and Hours >= 13) or (AvgT >= 45 and Hours >= 15) or (AvgT >= 43 and Hours >= 18) or (AvgT >= 41 and Hours >= 21) or
+            (AvgT >= 39 and Hours >= 28) or (AvgT >= 37 and Hours >= 30) or (AvgT >= 36 and Hours >= 35) or (AvgT >= 34 and Hours >= 41)):
                 ScLWM = "Yes"
             else:
                 ScLWM = "No"   
@@ -102,12 +104,13 @@ def getscab():
 
         #E
         if "20683600-1" in df.values and "20778340-1" in df.values and  df.loc[df['sensor_sn'] == "20683600-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            AvgT = df.loc[df['sensor_sn'] == "20677838-1"]['us_value'].mean() #get avg of temp value
-            Count = sum(df.loc[df['sensor_sn'] == "20778340-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
-            if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
-            (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
-            (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
-            (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            Count = sum(df.loc[df['sensor_sn'] == "20778340-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Hours = Count/12
+            AvgT = df.loc[df['sensor_sn'] == "20677838-1"]['us_value'].tail(Count).mean() #get avg of temp value
+            if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
+            (AvgT >= 54 and Hours >= 8) or (AvgT >= 52 and Hours >= 9) or (AvgT >= 50 and Hours >= 11) or (AvgT >= 48 and Hours >= 12) or
+            (AvgT >= 46 and Hours >= 13) or (AvgT >= 45 and Hours >= 15) or (AvgT >= 43 and Hours >= 18) or (AvgT >= 41 and Hours >= 21) or
+            (AvgT >= 39 and Hours >= 28) or (AvgT >= 37 and Hours >= 30) or (AvgT >= 36 and Hours >= 35) or (AvgT >= 34 and Hours >= 41)):
                 ScLWE = "Yes"
             else:
                 ScLWE = "No"   
@@ -117,12 +120,13 @@ def getscab():
 
         #X
         if "20629502-1" in df.values and "20780842-1" in df.values and  df.loc[df['sensor_sn'] == "20629502-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            AvgT = df.loc[df['sensor_sn'] == "20683651-1"]['us_value'].mean() #get avg of temp value
-            Count = sum(df.loc[df['sensor_sn'] == "20780842-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
-            if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
-            (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
-            (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
-            (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            Count = sum(df.loc[df['sensor_sn'] == "20780842-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Hours = Count/12
+            AvgT = df.loc[df['sensor_sn'] == "20683651-1"]['us_value'].tail(Count).mean() #get avg of temp value
+            if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
+            (AvgT >= 54 and Hours >= 8) or (AvgT >= 52 and Hours >= 9) or (AvgT >= 50 and Hours >= 11) or (AvgT >= 48 and Hours >= 12) or
+            (AvgT >= 46 and Hours >= 13) or (AvgT >= 45 and Hours >= 15) or (AvgT >= 43 and Hours >= 18) or (AvgT >= 41 and Hours >= 21) or
+            (AvgT >= 39 and Hours >= 28) or (AvgT >= 37 and Hours >= 30) or (AvgT >= 36 and Hours >= 35) or (AvgT >= 34 and Hours >= 41)):
                 ScLWX = "Yes"
             else:
                 ScLWX = "No"   
@@ -132,12 +136,13 @@ def getscab():
 
         #Leaf Wetness South
         if "20696900-1" in df.values and "20650716-1" in df.values and  df.loc[df['sensor_sn'] == "20696900-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            AvgT = df.loc[df['sensor_sn'] == "20692768-1"]['us_value'].mean() #get avg of temp value
-            Count = sum(df.loc[df['sensor_sn'] == "20650716-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
-            if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
-            (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
-            (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
-            (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            Count = sum(df.loc[df['sensor_sn'] == "20650716-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Hours = Count/12
+            AvgT = df.loc[df['sensor_sn'] == "20692768-1"]['us_value'].tail(Count).mean() #get avg of temp value
+            if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
+            (AvgT >= 54 and Hours >= 8) or (AvgT >= 52 and Hours >= 9) or (AvgT >= 50 and Hours >= 11) or (AvgT >= 48 and Hours >= 12) or
+            (AvgT >= 46 and Hours >= 13) or (AvgT >= 45 and Hours >= 15) or (AvgT >= 43 and Hours >= 18) or (AvgT >= 41 and Hours >= 21) or
+            (AvgT >= 39 and Hours >= 28) or (AvgT >= 37 and Hours >= 30) or (AvgT >= 36 and Hours >= 35) or (AvgT >= 34 and Hours >= 41)):
                 ScLWS = "Yes"
             else:
                 ScLWS = "No"   
@@ -147,12 +152,13 @@ def getscab():
 
         #G
         if "20810982-1" in df.values and "20778341-1" in df.values and  df.loc[df['sensor_sn'] == "20810982-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            AvgT = df.loc[df['sensor_sn'] == "20677839-1"]['us_value'].mean() #get avg of temp value
-            Count = sum(df.loc[df['sensor_sn'] == "20778341-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
-            if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
-            (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
-            (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
-            (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            Count = sum(df.loc[df['sensor_sn'] == "20778341-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Hours = Count/12
+            AvgT = df.loc[df['sensor_sn'] == "20677839-1"]['us_value'].tail(Count).mean() #get avg of temp value
+            if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
+            (AvgT >= 54 and Hours >= 8) or (AvgT >= 52 and Hours >= 9) or (AvgT >= 50 and Hours >= 11) or (AvgT >= 48 and Hours >= 12) or
+            (AvgT >= 46 and Hours >= 13) or (AvgT >= 45 and Hours >= 15) or (AvgT >= 43 and Hours >= 18) or (AvgT >= 41 and Hours >= 21) or
+            (AvgT >= 39 and Hours >= 28) or (AvgT >= 37 and Hours >= 30) or (AvgT >= 36 and Hours >= 35) or (AvgT >= 34 and Hours >= 41)):
                 ScLWG = "Yes"
             else:
                 ScLWG = "No"   
@@ -162,12 +168,13 @@ def getscab():
 
         #A16
         if "20683603-1" in df.values and "20776877-1" in df.values and  df.loc[df['sensor_sn'] == "20683603-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            AvgT = df.loc[df['sensor_sn'] == "20677837-1"]['us_value'].mean() #get avg of temp value
-            Count = sum(df.loc[df['sensor_sn'] == "20776877-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
-            if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
-            (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
-            (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
-            (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            Count = sum(df.loc[df['sensor_sn'] == "20776877-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Hours = Count/12
+            AvgT = df.loc[df['sensor_sn'] == "20677837-1"]['us_value'].tail(Count).mean() #get avg of temp value
+            if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
+            (AvgT >= 54 and Hours >= 8) or (AvgT >= 52 and Hours >= 9) or (AvgT >= 50 and Hours >= 11) or (AvgT >= 48 and Hours >= 12) or
+            (AvgT >= 46 and Hours >= 13) or (AvgT >= 45 and Hours >= 15) or (AvgT >= 43 and Hours >= 18) or (AvgT >= 41 and Hours >= 21) or
+            (AvgT >= 39 and Hours >= 28) or (AvgT >= 37 and Hours >= 30) or (AvgT >= 36 and Hours >= 35) or (AvgT >= 34 and Hours >= 41)):
                 ScLWA16 = "Yes"
             else:
                 ScLWA16 = "No"   
@@ -177,12 +184,13 @@ def getscab():
 
         #Y
         if "20683602-1" in df.values and "20778339-1" in df.values and  df.loc[df['sensor_sn'] == "20683602-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            AvgT = df.loc[df['sensor_sn'] == "20683650-1"]['us_value'].mean() #get avg of temp value
-            Count = sum(df.loc[df['sensor_sn'] == "20778339-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
-            if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
-            (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
-            (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
-            (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            Count = sum(df.loc[df['sensor_sn'] == "20778339-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Hours = Count/12
+            AvgT = df.loc[df['sensor_sn'] == "20683650-1"]['us_value'].tail(Count).mean() #get avg of temp value
+            if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
+            (AvgT >= 54 and Hours >= 8) or (AvgT >= 52 and Hours >= 9) or (AvgT >= 50 and Hours >= 11) or (AvgT >= 48 and Hours >= 12) or
+            (AvgT >= 46 and Hours >= 13) or (AvgT >= 45 and Hours >= 15) or (AvgT >= 43 and Hours >= 18) or (AvgT >= 41 and Hours >= 21) or
+            (AvgT >= 39 and Hours >= 28) or (AvgT >= 37 and Hours >= 30) or (AvgT >= 36 and Hours >= 35) or (AvgT >= 34 and Hours >= 41)):
                 ScLWY = "Yes"
             else:
                 ScLWY = "No"   
@@ -192,12 +200,13 @@ def getscab():
 
         #A11
         if "20683601-1" in df.values and "20778342-1" in df.values and  df.loc[df['sensor_sn'] == "20683601-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            AvgT = df.loc[df['sensor_sn'] == "20677836-1"]['us_value'].mean() #get avg of temp value
-            Count = sum(df.loc[df['sensor_sn'] == "20778342-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))/12 #count no of hours it's been more than 60% wetness
-            if((AvgT >= 79 and Count >= 11) or (AvgT >= 77 and Count >= 8) or (AvgT >= 61 and Count >= 6) or (AvgT >= 57 and Count >= 7) or #apple scab logic
-            (AvgT >= 54 and Count >= 8) or (AvgT >= 52 and Count >= 9) or (AvgT >= 50 and Count >= 11) or (AvgT >= 48 and Count >= 12) or
-            (AvgT >= 46 and Count >= 13) or (AvgT >= 45 and Count >= 15) or (AvgT >= 43 and Count >= 18) or (AvgT >= 41 and Count >= 21) or
-            (AvgT >= 39 and Count >= 28) or (AvgT >= 37 and Count >= 30) or (AvgT >= 36 and Count >= 35) or (AvgT >= 34 and Count >= 41)):
+            Count = sum(df.loc[df['sensor_sn'] == "20778342-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Hours = Count/12
+            AvgT = df.loc[df['sensor_sn'] == "20677836-1"]['us_value'].tail(Count).mean() #get avg of temp value
+            if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
+            (AvgT >= 54 and Hours >= 8) or (AvgT >= 52 and Hours >= 9) or (AvgT >= 50 and Hours >= 11) or (AvgT >= 48 and Hours >= 12) or
+            (AvgT >= 46 and Hours >= 13) or (AvgT >= 45 and Hours >= 15) or (AvgT >= 43 and Hours >= 18) or (AvgT >= 41 and Hours >= 21) or
+            (AvgT >= 39 and Hours >= 28) or (AvgT >= 37 and Hours >= 30) or (AvgT >= 36 and Hours >= 35) or (AvgT >= 34 and Hours >= 41)):
                 ScLWA11 = "Yes"
             else:
                 ScLWA11 = "No"   

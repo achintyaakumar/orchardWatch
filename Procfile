@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath api api:app
+web: flask db upgrade; gunicorn --pythonpath api api:app

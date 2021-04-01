@@ -111,6 +111,7 @@ const [ScLWG, setScLWG] = useState("Computing..");
 const [ScLWA16, setScLWA16] = useState("Computing..");
 const [ScLWY, setScLWY] = useState("Computing..");
 const [ScLWA11, setScLWA11] = useState("Computing..");
+const [ScabWarning, setScabWarning] = useState('')
 
 useEffect(() => {
   fetch('/api/temp').then(res => res.json()).then(data => {
@@ -326,6 +327,13 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
+  fetch('/api/scabDB').then(res =>  res.text()).then(res => {
+    setScabWarning(res);
+    console.log(res)
+  });
+}, []);
+
+useEffect(() => {
   fetch('/api/scab').then(res => res.json()).then(data => {
     setScLWN(data.ScLWN);
     setScLWM(data.ScLWM);
@@ -358,9 +366,12 @@ useEffect(() => {
 
 return (
     <div className="App">
-      <body className="App-body">
+      <div className="App-body">
         <p>Last update: {currentTime}</p>
         <br></br>
+        <p id="error" color="red">{ScabWarning}</p>
+        <br></br>
+        <div align='center' hidden><img src='https://www.free-website-hit-counter.com/c.php?d=9&id=126330&s=5' border='0' alt='Free Website Hit Counter'></img><br / ><small></small></div>
         <table>
           <tbody>
           <tr>
@@ -567,7 +578,7 @@ return (
           </tr>
           </tbody>
         </table>
-      </body>
+      </div>
     </div>
   );
 }

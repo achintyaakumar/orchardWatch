@@ -1,18 +1,18 @@
 from datetime import datetime as dt, timedelta, timezone
 from flask import Flask, request, Response
-#from config import Config
+from api import app, db
+from api.models import Scab
 import urllib.request
 import json
 import pandas as pd
 import numpy as np
 from pprint import pprint
 import pytz
-import config
 import sys
 import time
 
-app = Flask(__name__, static_folder="../build", static_url_path="/")
 abstime = time.time()
+
 #              N             M            E             X             S             G             A16           Y             A11        B3b
 sensors = {
     "1": ["20777735-1", "20683649-1", "20677838-1", "20683651-1", "20692768-1", "20677839-1", "20677837-1", "20683650-1", "20677836-1"], #Air temperature
@@ -27,7 +27,6 @@ sensors = {
 
 def getscab():
     global abstime
-    print("Start scab")
     print("Abs time at scab start %d"%(time.time()-abstime))
     t = time.time()
     curTime = (dt.now(timezone.utc) - timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')
@@ -40,9 +39,9 @@ def getscab():
     values = {
     "action": "",
     "authentication": {
-        "password": config.password,
-        "token": config.token,
-        "user": config.username
+        "password": app.config['PASSWORD'],
+        "token": app.config['TOKEN'],
+        "user": app.config['USERNAME']
     },
     "query": {
         "end_date_time": curTime,
@@ -214,7 +213,17 @@ def getscab():
             ScLWA11 = "No" 
         
         print("Finishing scab api at %d seconds"%(time.time()-t))
-        return{'ScLWN': ScLWM, 'ScLWM': ScLWM, 'ScLWE': ScLWE, 'ScLWX': ScLWX, 'ScLWG': ScLWG, 'ScLWA16': ScLWA16, 'ScLWY': ScLWY, 'ScLWA11': ScLWA11, 'ScLWS': ScLWS}
+        
+        # Write scab warnings to database
+        existingEntry = Scab.query.filter_by(timestamp=dt.now(timezone.utc).date()).first()
+        if existingEntry is None and (ScLWN == "Yes" or ScLWM == "Yes" or ScLWE == "Yes" or ScLWX == "Yes" or 
+        ScLWS == "Yes" or ScLWG == "Yes" or ScLWA16 == "Yes" or ScLWY == "Yes" or ScLWA11 == "Yes"):
+            entry = Scab(timestamp=dt.now(timezone.utc).date(), N=ScLWN, M=ScLWM, E=ScLWE, X=ScLWX, S=ScLWS, G=ScLWG, A16=ScLWA16, Y=ScLWY, A11=ScLWA11)
+            db.session.add(entry)
+            db.session.commit() # add to list of warnings
+            print(Scab.query.order_by(Scab.timestamp.desc()).first().timestamp) 
+
+        return{'ScLWN': ScLWN, 'ScLWM': ScLWM, 'ScLWE': ScLWE, 'ScLWX': ScLWX, 'ScLWG': ScLWG, 'ScLWA16': ScLWA16, 'ScLWY': ScLWY, 'ScLWA11': ScLWA11, 'ScLWS': ScLWS}
 
     except Exception as e:
         pprint(e)
@@ -251,12 +260,12 @@ def get_current_time():
     values = {
         "action": "",
         "authentication": {
-            # "password": app.config['PASSWORD'],
-            # "token": app.config['TOKEN'],
-            # "user": app.config['USERNAME']
-            "password": config.password,
-            "token": config.token,
-            "user": config.username
+            "password": app.config['PASSWORD'],
+            "token": app.config['TOKEN'],
+            "user": app.config['USERNAME']
+            # "password": config.password,
+            # "token": config.token,
+            # "user": config.username
         },
         "query": {
             "end_date_time": curTime,
@@ -972,10 +981,16 @@ def get_current_time():
     }
  
 
-
 @app.route('/api/scab')
 def apple_scab():
     return getscab()
+
+@app.route('/api/scabDB')
+def apple_scab_warnings():
+    warnings = str(Scab.query.order_by(Scab.timestamp.desc()).first().timestamp)
+    if warnings is None:
+        return ""
+    return warnings
 
 @app.route('/api/download', methods=['POST'])
 def download():
@@ -992,9 +1007,9 @@ def download():
     values = {
     "action": "",
     "authentication": {
-        "password": config.password,
-        "token": config.token,
-        "user": config.username
+        "password": app.config['PASSWORD'],
+        "token": app.config['TOKEN'],
+        "user": app.config['USERNAME']
     },
     "query": {
         "end_date_time": curTime,

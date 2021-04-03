@@ -1,17 +1,39 @@
 from datetime import datetime as dt, timedelta, timezone
 from flask import Flask, request, Response
-from api import app, db
-from api.models import Scab
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from config import Config
 import urllib.request
 import json
 import pandas as pd
 import numpy as np
-from pprint import pprint
 import pytz
 import sys
 import time
 
 abstime = time.time()
+
+app = Flask(__name__, static_folder="../build", static_url_path="/")
+app.config.from_object(Config)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+class Scab(db.Model):
+    timestamp = db.Column(db.Date, primary_key=True, unique=True)
+    N = db.Column(db.String(32))
+    M = db.Column(db.String(32))
+    E = db.Column(db.String(32))
+    X = db.Column(db.String(32))
+    S = db.Column(db.String(32))
+    G = db.Column(db.String(32))
+    A11 = db.Column(db.String(32))
+    Y = db.Column(db.String(32))
+    A16 = db.Column(db.String(32))
+    
+    def __repr__(self):
+       return '<timestamp {}>'.format(self.timestamp)
+
+db.create_all()
 
 #              N             M            E             X             S             G             A16           Y             A11        B3b
 sensors = {
@@ -987,8 +1009,9 @@ def apple_scab():
 
 @app.route('/api/scabDB')
 def apple_scab_warnings():
-    warnings = str(Scab.query.order_by(Scab.timestamp.desc()).first().timestamp)
-    if warnings is None:
+    try:
+        warnings = str(Scab.query.order_by(Scab.timestamp.desc()).first().timestamp)
+    except:
         return ""
     return warnings
 

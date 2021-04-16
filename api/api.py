@@ -270,7 +270,7 @@ def get_current_time():
     global abstime
     #Get most recent timestamp for Hobolink
     curTime = (dt.now(timezone.utc) - timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')
-    prevTime = (dt.now(timezone.utc) - timedelta(minutes=80)).strftime('%Y-%m-%d %H:%M:%S')
+    prevTime = (dt.now(timezone.utc) - timedelta(minutes=180)).strftime('%Y-%m-%d %H:%M:%S')
     utc_now = pytz.utc.localize(dt.utcnow())
     current_timestamp = utc_now.astimezone(pytz.timezone("US/Eastern")).strftime('%Y-%m-%d %H:%M:%S')
 

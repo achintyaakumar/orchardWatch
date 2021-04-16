@@ -1,4 +1,5 @@
 from datetime import datetime as dt, timedelta, timezone
+from dateutil import tz
 from flask import Flask, request, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -93,7 +94,7 @@ def getscab():
         print("Starting scab calc at %d"%(t1-abstime))
         #North
         if "20775973-1" in df.values and "20774075-1" in df.values and  df.loc[df['sensor_sn'] == "20775973-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            Count = sum(df.loc[df['sensor_sn'] == "20774075-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Count = int(sum(df.loc[df['sensor_sn'] == "20774075-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))) #count no of hours it's been more than 60% wetness
             Hours = Count/12
             AvgT = df.loc[df['sensor_sn'] == "20777735-1"]['us_value'].tail(Count).mean() #get avg of temp value 
             if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
@@ -109,7 +110,7 @@ def getscab():
 
         #M
         if "20683599-1" in df.values and "20776878-1" in df.values and  df.loc[df['sensor_sn'] == "20683599-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            Count = sum(df.loc[df['sensor_sn'] == "20776878-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Count = int(sum(df.loc[df['sensor_sn'] == "20776878-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))) #count no of hours it's been more than 60% wetness
             Hours = Count/12
             AvgT = df.loc[df['sensor_sn'] == "20683649-1"]['us_value'].tail(Count).mean() #get avg of temp value
             if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
@@ -125,7 +126,7 @@ def getscab():
 
         #E
         if "20683600-1" in df.values and "20778340-1" in df.values and  df.loc[df['sensor_sn'] == "20683600-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            Count = sum(df.loc[df['sensor_sn'] == "20778340-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Count = int(sum(df.loc[df['sensor_sn'] == "20778340-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))) #count no of hours it's been more than 60% wetness
             Hours = Count/12
             AvgT = df.loc[df['sensor_sn'] == "20677838-1"]['us_value'].tail(Count).mean() #get avg of temp value
             if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
@@ -141,7 +142,7 @@ def getscab():
 
         #X
         if "20629502-1" in df.values and "20780842-1" in df.values and  df.loc[df['sensor_sn'] == "20629502-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            Count = sum(df.loc[df['sensor_sn'] == "20780842-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Count = int(sum(df.loc[df['sensor_sn'] == "20780842-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))) #count no of hours it's been more than 60% wetness
             Hours = Count/12
             AvgT = df.loc[df['sensor_sn'] == "20683651-1"]['us_value'].tail(Count).mean() #get avg of temp value
             if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
@@ -157,7 +158,7 @@ def getscab():
 
         #Leaf Wetness South
         if "20696900-1" in df.values and "20650716-1" in df.values and  df.loc[df['sensor_sn'] == "20696900-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            Count = sum(df.loc[df['sensor_sn'] == "20650716-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Count = int(sum(df.loc[df['sensor_sn'] == "20650716-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))) #count no of hours it's been more than 60% wetness
             Hours = Count/12
             AvgT = df.loc[df['sensor_sn'] == "20692768-1"]['us_value'].tail(Count).mean() #get avg of temp value
             if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
@@ -173,7 +174,7 @@ def getscab():
 
         #G
         if "20810982-1" in df.values and "20778341-1" in df.values and  df.loc[df['sensor_sn'] == "20810982-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            Count = sum(df.loc[df['sensor_sn'] == "20778341-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Count = int(sum(df.loc[df['sensor_sn'] == "20778341-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))) #count no of hours it's been more than 60% wetness
             Hours = Count/12
             AvgT = df.loc[df['sensor_sn'] == "20677839-1"]['us_value'].tail(Count).mean() #get avg of temp value
             if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
@@ -189,7 +190,7 @@ def getscab():
 
         #A16
         if "20683603-1" in df.values and "20776877-1" in df.values and  df.loc[df['sensor_sn'] == "20683603-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            Count = sum(df.loc[df['sensor_sn'] == "20776877-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Count = int(sum(df.loc[df['sensor_sn'] == "20776877-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))) #count no of hours it's been more than 60% wetness
             Hours = Count/12
             AvgT = df.loc[df['sensor_sn'] == "20677837-1"]['us_value'].tail(Count).mean() #get avg of temp value
             if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
@@ -205,7 +206,7 @@ def getscab():
 
         #Y
         if "20683602-1" in df.values and "20778339-1" in df.values and  df.loc[df['sensor_sn'] == "20683602-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            Count = sum(df.loc[df['sensor_sn'] == "20778339-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Count = int(sum(df.loc[df['sensor_sn'] == "20778339-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))) #count no of hours it's been more than 60% wetness
             Hours = Count/12
             AvgT = df.loc[df['sensor_sn'] == "20683650-1"]['us_value'].tail(Count).mean() #get avg of temp value
             if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
@@ -221,7 +222,7 @@ def getscab():
 
         #A11
         if "20683601-1" in df.values and "20778342-1" in df.values and  df.loc[df['sensor_sn'] == "20683601-1"].iloc[-1]['us_value']>0.0: #check if rain & leaf wetness values exist and if it the latest rain value is > 0
-            Count = sum(df.loc[df['sensor_sn'] == "20778342-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60))) #count no of hours it's been more than 60% wetness
+            Count = int(sum(df.loc[df['sensor_sn'] == "20778342-1"]['us_value'][::-1].expanding().apply(lambda x: np.all(x>60)))) #count no of hours it's been more than 60% wetness
             Hours = Count/12
             AvgT = df.loc[df['sensor_sn'] == "20677836-1"]['us_value'].tail(Count).mean() #get avg of temp value
             if((AvgT >= 79 and Hours >= 11) or (AvgT >= 77 and Hours >= 8) or (AvgT >= 61 and Hours >= 6) or (AvgT >= 57 and Hours >= 7) or #apple scab logic
@@ -248,7 +249,7 @@ def getscab():
         return{'ScLWN': ScLWN, 'ScLWM': ScLWM, 'ScLWE': ScLWE, 'ScLWX': ScLWX, 'ScLWG': ScLWG, 'ScLWA16': ScLWA16, 'ScLWY': ScLWY, 'ScLWA11': ScLWA11, 'ScLWS': ScLWS}
 
     except Exception as e:
-        pprint(e)
+        print(e)
     
     return{'ScLWN': "NA", 'ScLWM': "NA", 'ScLWE': "NA", 'ScLWX': "NA", 'ScLWG': "NA", 'ScLWA16': "NA", 'ScLWY': "NA", 'ScLWA11': "NA", 'ScLWS': "NA"}
     
@@ -266,14 +267,12 @@ def index():
 def get_current_time():
 
     print("Starting temp")
-    t = time.time()
     global abstime
-    abstime = time.time()
     #Get most recent timestamp for Hobolink
     curTime = (dt.now(timezone.utc) - timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')
-    prevTime = (dt.now(timezone.utc) - timedelta(minutes=35)).strftime('%Y-%m-%d %H:%M:%S')
+    prevTime = (dt.now(timezone.utc) - timedelta(minutes=80)).strftime('%Y-%m-%d %H:%M:%S')
     utc_now = pytz.utc.localize(dt.utcnow())
-    timestamp = utc_now.astimezone(pytz.timezone("US/Eastern")).strftime('%Y-%m-%d %H:%M:%S')
+    current_timestamp = utc_now.astimezone(pytz.timezone("US/Eastern")).strftime('%Y-%m-%d %H:%M:%S')
 
 
     #Initialize parameters for API
@@ -308,11 +307,19 @@ def get_current_time():
         req = urllib.request.Request(url, data, headers)
         with urllib.request.urlopen(req) as f:
             res = f.read()
-            print("Got temp data at %d seconds"%(time.time()-t))
 
             #Convert response to a pandas dataframe
             data = json.loads(res.decode())
             df = pd.json_normalize(data['observationList'])
+
+            #Get time of data
+            timestring = df.iloc[-1]['timestamp']
+            time = dt.strptime(timestring, '%Y-%m-%d %H:%M:%SZ')
+            from_zone = tz.gettz('UTC')
+            to_zone = tz.gettz('America/New_York')
+            utc_conv = time.replace(tzinfo=from_zone)
+            data_timestamp = utc_conv.astimezone(to_zone).strftime('%Y-%m-%d %H:%M:%S')
+            print(data_timestamp)
 
             #North air temperature
             if "20777735-1" in df.values:
@@ -931,7 +938,6 @@ def get_current_time():
             else:
                 valueWDA11 = 0 
         
-            print("Finishing temp api at %d seconds"%(time.time()-t))
             return {'tempN': "%.2f" % float(valueNA), 'tempS': "%.2f" % float(valueSA),
             'RHN': "%.2f" % float(valueRHN), 'RHS': "%.2f" % float(valueRHS),
             'TSN': "%.2f" % float(valueTSN), 'TSS': "%.2f" % float(valueTSS),
@@ -962,12 +968,11 @@ def get_current_time():
             'GSS': "%.2f" % float(valueGSS),'GSG': "%.2f" % float(valueGSG), 'GSA16': "%.2f" % float(valueGSA16), 'GSY': "%.2f" % float(valueGSY), 'GSA11': "%.2f" % float(valueGSA11),
             'WDN': "%.2f" % float(valueWDN), 'WDM': "%.2f" % float(valueWDM), 'WDE': "%.2f" % float(valueWDE), 'WDX': "%.2f" % float(valueWDX),
             'WDS': "%.2f" % float(valueWDS), 'WDG':"%.2f" % float(valueWDG), 'WDA16': "%.2f" % float(valueWDA16), 'WDY':"%.2f" % float(valueWDY), 'WDA11': "%.2f" % float(valueWDA11),
-            'time': timestamp
+            'current_time': current_timestamp, 'data_time': data_timestamp
             }
     except Exception as e:
         print(e)
-    
-    print("Finishing temp api at %d seconds"%(time.time()-t))   
+     
     return {
         'tempN': "%.2f" % 0, 'tempS': "%.2f" % 0,
             'RHN': "%.2f" % 0, 'RHS': "%.2f" % 0,
@@ -1014,6 +1019,14 @@ def apple_scab_warnings():
     except:
         return ""
     return warnings
+
+@app.route('/api/scab/all')
+def apple_scab_all():
+    try:
+        query = str(Scab.query.all())
+    except:
+        return ""
+    return query
 
 @app.route('/api/download', methods=['POST'])
 def download():
@@ -1071,6 +1084,6 @@ def download():
         # print(df)
         return retData
     except Exception as e:
-        pprint(e)
+        print(e)
     
     return 500

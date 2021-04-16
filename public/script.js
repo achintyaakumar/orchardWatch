@@ -92,7 +92,7 @@ var weatherMap = {
   1: { type: 'severe', class: '', intensity: 2.5, icon: 'wi-thunderstorm', name: 'Tropical Storm' }, //tropical storm
   2: { type: 'severe', class: '', intensity: 5, icon: 'wi-hurricane', name: 'Hurricane' }, //hurricane
   3: { type: 'severe', class: '', intensity: 1.25, icon: 'wi-thunderstorm', name: 'Severe Thunderstorms' }, //severe thunderstorms
-  4: { type: 'thunder', class: '', intensity: 1, icon: 'wi-thunderstorm', name: 'Thunderstorms' }, //thunderstorms
+  4: { type: 'thunder', class: '', intensity: 1, icon: 'wi-thunderstorm', name: 'Heavy Rain' }, //thunderstorms
   5: { type: 'mix-rain-snow', class: 'cold', intensity: 1, icon: 'wi-rain-mix', name: 'Mixed Rain and Snow' }, //mixed rain and snow
   6: { type: 'mix-rain-sleet', class: 'cold', intensity: 1, icon: 'wi-sleet', name: 'Mixed Rain and Sleet' }, //mixed rain and sleet
   7: { type: 'mix-snow-sleet', class: 'cold', intensity: 1, icon: 'wi-sleet', name: 'Mixed Snow and Sleet' }, //mixed snow and sleet
@@ -126,14 +126,14 @@ var weatherMap = {
   35: { type: 'hail', class: '', intensity: 1, icon: 'wi-hail', name: 'Mixed Rain and Hail' }, //mixed rain and hail
   36: { type: 'sun', class: 'hot', intensity: 1, icon: 'wi-day-sunny', name: 'Hot' }, //hot
   37: { type: 'thunder', class: '', intensity: .25, icon: 'wi-storm-showers', name: 'Isolated Thunderstorms' }, //isolated thunderstorms
-  38: { type: 'thunder', class: 'night', intensity: 1, icon: 'wi-storm-showers', name: 'Thunderstorm' }, //thunderstorm (night)
+  38: { type: 'thunder', class: 'night', intensity: 1, icon: 'wi-storm-showers', name: 'Heavy Rain' }, //thunderstorm (night)
   39: { type: 'rain', class: 'night', intensity: 1, icon: 'wi-storm-showers', name: 'Rain' }, //Rain (night)
   40: { type: 'rain', class: '', intensity: .75, icon: 'wi-showers', name: 'Scattered Showers' }, //scattered showers
   41: { type: 'rain', class: 'night', intensity: 0.7, icon: 'wi-sprinkle', name: 'Drizzle' }, //Drizzle (night)
   42: { type: 'snow', class: 'night', intensity: 1, icon: 'wi-snow', name: 'Snow' }, //snow (night)
   43: { type: 'snow', class: 'cold', intensity: 1.75, icon: 'wi-snow', name: 'Heavy Snow' }, //heavy snow
   44: { type: 'cloud', class: '', intensity: .1, icon: 'wi-day-cloudy', name: 'Partly Cloudy' }, //partly cloudy
-  45: { type: 'thunder', class: '', intensity: .5, icon: 'wi-storm-showers', name: 'Thundershowers' }, //thundershowers
+  45: { type: 'thunder', class: '', intensity: .5, icon: 'wi-storm-showers', name: 'Heavy Rain' }, //thundershowers
   46: { type: 'snow', class: 'cold', intensity: .75, icon: 'wi-snow', name: 'Snow Showers' }, //snow showers
   47: { type: 'thunder', class: '', intensity: .25, icon: 'wi-storm-showers', name: 'Isolated Thunderstorms' } //isolated thundershowers
 };

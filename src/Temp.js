@@ -214,7 +214,7 @@ useEffect(() => {
     setCurrentWDA16(data.WDA16);
     setCurrentWDY(data.WDY);
     setCurrentWDA11(data.WDA11);
-    setCurrentTime(data.time);
+    setCurrentTime(data.data_time);
   });
 }, []);
 

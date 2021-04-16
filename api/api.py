@@ -1004,7 +1004,7 @@ def get_current_time():
             'GSS': "%.2f" % 0,'GSG': "%.2f" % 0, 'GSA16': "%.2f" % 0, 'GSY': "%.2f" % 0, 'GSA11': "%.2f" % 0,
             'WDN': "%.2f" % 0, 'WDM': "%.2f" % 0, 'WDE': "%.2f" % 0, 'WDX': "%.2f" % 0,
             'WDS': "%.2f" % 0, 'WDG':"%.2f" % 0, 'WDA16': "%.2f" % 0, 'WDY':"%.2f" % 0, 'WDA11': "%.2f" % 0,
-            'time': "Could not connect to the weather station"
+            'current_time':current_timestamp,'data_time': "Could not connect to the weather station"
     }
  
 
